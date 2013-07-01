@@ -32,7 +32,7 @@ try {
 			
 							@Override public void onMessage(String data) {
 								try {
-									teacherConnection.sendMessage(data + " joined.");
+									teacherConnection.sendMessage(data + " raised a hand.");
 								} catch (IOException x) {
 									connection.close();
 								}
