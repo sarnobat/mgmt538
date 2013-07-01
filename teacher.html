@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script type="text/javascript">
+		function connect() {
+			 var webSocket = new WebSocket("ws://localhost:8082/");
+			 webSocket.onopen = function() {
+				var msg = "TEACHER::";
+				webSocket.send(msg);
+			 };
+			 webSocket.onmessage = function (evt) { 
+				var received_msg = evt.data;
+				$('div[id=output]').prepend(received_msg + "<br>");
+			 };
+			 webSocket.onclose = function() {
+			 };
+		}
+	</script>
+</head>
+<body onload="connect()">
+	<div id="output" value=""></div>
+	<input type="button" value="clear">
+</body>
+</html>
