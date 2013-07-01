@@ -9,6 +9,7 @@ import org.eclipse.jetty.websocket.WebSocketHandler;
 import org.eclipse.jetty.websocket.WebSocket.Connection;
 
 final Connection teacherConnection;
+final Collection<WebSocket.OnTextMessage> studentSockets = new HashSet<WebSocket.OnTextMessage>();
 try {
 	final Server server = new Server(8082);
 	WebSocketHandler chatWebSocketHandler = new WebSocketHandler() {
