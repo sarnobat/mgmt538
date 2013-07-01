@@ -7,8 +7,8 @@
 	<script type="text/javascript">
 		
 		function clearConsole() {
-			//alert();
-			webSocket.send("C");
+			webSocket.send("CLEAR");
+			$('div[id=output]').val("");
 		}
 		var webSocket ;
 		function connect() {
@@ -16,9 +16,8 @@
 			 webSocket.onopen = function() {
 			 };
 			 webSocket.onmessage = function (evt) { 
-				var received_msg = evt.data;
+			 	var received_msg = evt.data;
 				$('div[id=output]').prepend(received_msg + "<br>");
-				alert(received_msg);
 			 };
 			 webSocket.onclose = function() {
 			 };

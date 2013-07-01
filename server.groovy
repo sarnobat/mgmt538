@@ -65,12 +65,7 @@ try {
 				}
 
 				@Override public void onMessage(String data) {
-					teacherConnection.sendMessage("I just got something: " + data);
-					//println("Teacher message handler:");
-					//for (WebSocket.OnTextMessage studentSocket : studentSockets) {
-					//	studentConnections.get(studentSocket).sendMessage(data);
-					//}
-					//throw new RuntimeException(studentSockets.length());
+					teacherConnection.sendMessage(data);
 				}
 			};
 		}
