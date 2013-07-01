@@ -5,22 +5,28 @@
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script type="text/javascript">
+		var webSocket;
 		function connect() {
-			 var webSocket = new WebSocket("ws://localhost:8081/");
+			webSocket = new WebSocket("ws://localhost:8081/");			 
 			 webSocket.onopen = function() {
-				var msg = "JOIN::" + $('input[id=name]').val();
-				webSocket.send(msg);
+				
 			 };
 			 webSocket.onmessage = function (evt) { 
+			 	// To clear participation
 				var received_msg = evt.data;
 			 };
 			 webSocket.onclose = function() { 
 			 };
 		}
+		
+		function raiseHand() {
+			var msg = "JOIN::" + $('input[id=name]').val();
+			webSocket.send(msg);
+		}
 	</script>
 </head>
-<body>
+<body onload="connect()">
 	<input id="name" value="Anonymous" onchange="connect()"/>
-	<a href="javascript:connect()">Raise Hand</a>
+	<a href="javascript:raiseHand()">Raise Hand</a>
 </body>
 </html>
