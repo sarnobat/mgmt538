@@ -18,9 +18,9 @@ try {
 			try {
 				final Server studentServer = new Server(8081);
 				WebSocketHandler chatWebSocketHandler = new WebSocketHandler() {
-					Connection connection;
 					public WebSocket doWebSocketConnect(HttpServletRequest request2, String protocol2) {
 						return new WebSocket.OnTextMessage() {
+							Connection connection;
 							@Override public void onOpen(Connection conn) {
 								connection = conn;
 							}
