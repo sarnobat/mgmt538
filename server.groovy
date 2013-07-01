@@ -9,6 +9,7 @@ import org.eclipse.jetty.websocket.WebSocketHandler;
 import org.eclipse.jetty.websocket.WebSocket.Connection;
 
 final Connection teacherConnection;
+final Map<WebSocket.OnTextMessage, Connection> studentConnections = new HashMap<WebSocket.OnTextMessage, Connection>();
 final Collection<WebSocket.OnTextMessage> studentSockets = new HashSet<WebSocket.OnTextMessage>();
 try {
 	final Server server = new Server(8082);
@@ -24,6 +25,7 @@ try {
 							@Override public void onOpen(Connection conn) {
 								connection = conn;
 								studentSockets.add(connection)
+								studentConnections.put(this, connection);
 							}
 			
 							@Override public void onClose(int closeCode, String message) {
@@ -63,6 +65,12 @@ try {
 				}
 
 				@Override public void onMessage(String data) {
+					teacherConnection.sendMessage("I just got something: " + data);
+					//println("Teacher message handler:");
+					//for (WebSocket.OnTextMessage studentSocket : studentSockets) {
+					//	studentConnections.get(studentSocket).sendMessage(data);
+					//}
+					//throw new RuntimeException(studentSockets.length());
 				}
 			};
 		}

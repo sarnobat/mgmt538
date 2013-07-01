@@ -5,15 +5,20 @@
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script type="text/javascript">
+		
+		function clearConsole() {
+			//alert();
+			webSocket.send("C");
+		}
+		var webSocket ;
 		function connect() {
-			 var webSocket = new WebSocket("ws://localhost:8082/");
+			 webSocket = new WebSocket("ws://localhost:8082/");
 			 webSocket.onopen = function() {
-				var msg = "TEACHER::";
-				webSocket.send(msg);
 			 };
 			 webSocket.onmessage = function (evt) { 
 				var received_msg = evt.data;
 				$('div[id=output]').prepend(received_msg + "<br>");
+				alert(received_msg);
 			 };
 			 webSocket.onclose = function() {
 			 };
@@ -22,6 +27,6 @@
 </head>
 <body onload="connect()">
 	<div id="output" value=""></div>
-	<input type="button" value="clear">
+	<input type="button" value="clear" onclick="clearConsole()">
 </body>
 </html>
