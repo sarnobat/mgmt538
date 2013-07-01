@@ -8,7 +8,7 @@
 		
 		function clearConsole() {
 			webSocket.send("CLEAR");
-			$('div[id=output]').val("");
+			$('div[id=output]').text("");
 		}
 		var webSocket ;
 		function connect() {
