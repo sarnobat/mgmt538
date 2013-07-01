@@ -23,10 +23,11 @@ try {
 							Connection connection;
 							@Override public void onOpen(Connection conn) {
 								connection = conn;
+								studentSockets.add(connection)
 							}
 			
 							@Override public void onClose(int closeCode, String message) {
-								connection = null;
+								studentSockets.remove(connection);
 							}
 			
 							@Override public void onMessage(String data) {
