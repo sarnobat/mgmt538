@@ -2,6 +2,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.eclipse.jetty.websocket.*;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.websocket.WebSocket;
@@ -65,7 +66,11 @@ try {
 				}
 
 				@Override public void onMessage(String data) {
-					teacherConnection.sendMessage(data);
+					for (WebSocket.FrameConnection studentSocket : studentSockets) {
+					//	studentConnections.get(studentSocket).sendMessage(data);
+						//println(studentSocket);
+						studentSocket.sendMessage(data);
+					}
 				}
 			};
 		}
