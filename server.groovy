@@ -3,7 +3,8 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 import javax.servlet.http.HttpServletRequest;
-
+import java.util.logging.SimpleFormatter;
+import java.util.logging.FileHandler;
 import org.eclipse.jetty.websocket.*;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -11,6 +12,11 @@ import org.eclipse.jetty.websocket.WebSocket;
 import org.eclipse.jetty.websocket.WebSocketHandler;
 import org.eclipse.jetty.websocket.WebSocket.Connection;
 final Logger log = Logger.getLogger("com.something.something");
+// Strange, I think the logger now works to stdout in all threads. See what happens if you remove this.
+FileHandler handler = new FileHandler("/home/sarnobat/Desktop/server.txt")
+handler.setFormatter(new SimpleFormatter()); 
+
+log.addHandler(handler);
 synchronized Logger getLogger() {
 	return log;
 }
@@ -43,12 +49,24 @@ try {
 
 				@Override public void onMessage(String data) {
 					log.info("Message");
+					if (teacherConnection == null) {
+						log.info("Teacher not connected");
+						connection.sendMessage('TEACHER_MISSING');
+						return;
+					} else {
+						log.info("Teacher is connected");
+						connection.sendMessage('TEACHER_PRESENT');
+					}
 					try {
 						teacherConnection.sendMessage(data + " raised a hand.");
+						log.info("Successfully messaged the teacher");
 						connection.sendMessage('RAISED');
-					} catch (IOException x) {
-						connection.sendMessage('FAIL');
-						doLog(x);
+					} catch (Exception x) {
+						connection.sendMessage('FAIL: ' + x.getStackTrace());
+						//doLog(x.getStackTrace());
+						//doLog(x.toString());
+						//getLogger().info(x.toString());
+						log.info("Exception: " + x.getStackTrace());
 						connection.close();
 					}
 				}
@@ -79,6 +97,8 @@ try {
 			return new WebSocket.OnTextMessage() {
 				@Override public void onOpen(Connection conn) {
 					teacherConnection = conn;
+					log.info("Teacher just connected");
+					// We can't send messages to students - we don't keep their connections open
 				}
 
 				@Override public void onClose(int closeCode, String message) {

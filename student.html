@@ -25,16 +25,21 @@
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script type="text/javascript">
 		var webSocket;
-		function connect() {
+		function connectAndSend() {
 			//webSocket = new WebSocket("ws://localhost:8081/");
 			webSocket = new WebSocket("ws://netgear.rohidekar.com:8081/");
+			console.debug('webSocket now initialized');
 			 webSocket.onopen = function() {
 				// This gets called even if the socket doesn't get opened successfully.
+				console.debug('attempting to send after connect attempt');
+				var msg = "RAISE::" + $('input[id=name]').val();
+				webSocket.send(msg);
+				console.debug('sent after connect attempt');
 			 };
 			 webSocket.onmessage = function (evt) { 
 			 	// To clear participation
 				var received_msg = evt.data;
-				alert('Received something');
+				alert(received_msg);
 			 };
 			 webSocket.onclose = function() { 
 			 };
@@ -45,15 +50,16 @@
 			// Should not be dependent on teacher's page being open
 			if (webSocket == null) {
 				console.debug('2');
-				connect();
+				connectAndSend();
 			} else {
 				console.debug('Socket previously initialized');
+				console.debug('3');
+				var msg = "RAISE::" + $('input[id=name]').val();
+				console.debug('Attempting to communicate with server...');
+				webSocket.send(msg);
+				console.debug('Successfully sent message');
 			}
-			console.debug('3');
-			var msg = "RAISE::" + $('input[id=name]').val();
-			console.debug('Attempting to communicate with server...');
-			webSocket.send(msg);
-			console.debug('Successfully sent message');
+			
 		}
 	</script>
 </head>
