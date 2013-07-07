@@ -14,6 +14,7 @@ final Logger log = Logger.getLogger("com.something.something");
 synchronized Logger getLogger() {
 	return log;
 }
+log.info('begin');
 
 synchronized static void doLog(String str) {
 	println(str);
@@ -55,12 +56,12 @@ try {
 	chatWebSocketHandler.setHandler(new DefaultHandler());
 	studentServer.setHandler(chatWebSocketHandler);
 	studentServer.start();
-	/*new Runnable() {
+	new Runnable() {
 		@Override public void run() {
 			log.info('started 1');
 			studentServer.join();
 		}
-	};*/
+	};
 } catch (Throwable e) {
 	e.printStackTrace();
 }
@@ -95,12 +96,12 @@ try {
 	chatWebSocketHandler.setHandler(new DefaultHandler());
 	server.setHandler(chatWebSocketHandler);
 	server.start();
-	/*new Runnable() {
+	new Runnable() {
 		@Override public void run() {
 			log.info('started 2');
 			server.join();
 		}
-	};*/
+	};
 } catch (Throwable e) {
 	e.printStackTrace();
 }
