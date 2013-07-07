@@ -11,19 +11,21 @@
         <script src="lib/jqtouch-jquery.min.js" type="application/x-javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
-            var jQT = new $.jQTouch({});
-            
-		   $(function(){
-                $('#raise_hand').tap(function(){
-                    raiseHand();
-                    //alert('hi');
-                });
-            });
+          
         </script>
 
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script type="text/javascript">
+		var jQT = new $.jQTouch({});
+		checkTeacherAvailability();
+		var teacherConnected = false;
+		$(function(){
+			$('#raise_hand').tap(function(){
+				raiseHand();
+				//alert('hi');
+			});
+		});
 		var webSocket;
 		function checkTeacherAvailability() {
 			console.debug('checkTeacherAvailability() - begin');
@@ -39,9 +41,15 @@
 			webSocket.onmessage = function (evt) { 
 				// To clear participation
 				var received_msg = evt.data;
+				alert(received_msg);
 				if (received_msg == 'TEACHER_MISSING') {
-					alert(received_msg);
+					teacherConnected = false;
+					//$('#raise_hand').hide();
 					$('#raise_hand').toggleClass('grayButton');
+				} else if (received_msg == 'TEACHER_JOINED') {
+					alert(received_msg);
+				} else {
+					teacherConnected = true;
 				}
 				console.debug('checkTeacherAvailability.onmessage() end');
 			};
@@ -54,6 +62,7 @@
 			//webSocket = new WebSocket("ws://localhost:8081/");
 			webSocket = new WebSocket("ws://netgear.rohidekar.com:8081/");
 		}
+		// DEPRECATED
 		function connectAndSend() {
 			console.debug('connectAndSend() end');
 			connect();
@@ -96,7 +105,7 @@
 		}
 	</script>
 </head>
-<body onload="checkTeacherAvailability()">
+<body onload="">
 	<div id="jqt">
 		<div id="callbacks">
 			<div class="toolbar">

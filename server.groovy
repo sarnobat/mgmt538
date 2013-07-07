@@ -67,7 +67,7 @@ try {
 						//doLog(x.toString());
 						//getLogger().info(x.toString());
 						log.info("Exception: " + x.getStackTrace());
-						connection.close();
+						//connection.close();
 					}
 				}
 			};
@@ -98,7 +98,11 @@ try {
 				@Override public void onOpen(Connection conn) {
 					teacherConnection = conn;
 					log.info("Teacher just connected");
-					// We can't send messages to students - we don't keep their connections open
+					for (WebSocket.FrameConnection studentSocket : studentSockets) {
+					//	studentConnections.get(studentSocket).sendMessage(data);
+						//println(studentSocket);
+						studentSocket.sendMessage("TEACHER_JOINED");
+					}
 				}
 
 				@Override public void onClose(int closeCode, String message) {
