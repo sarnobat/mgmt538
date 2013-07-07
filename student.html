@@ -1,8 +1,19 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+        <link rel="stylesheet" href="lib/jqtouch.css" title="jQTouch">
+
+        <!--<script src="../../src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>-->
+        <script src="lib/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+        <!-- Uncomment the following two lines (and comment out the previous two) to use jQuery instead of Zepto. -->
+		<script src="lib/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="lib/jqtouch-jquery.min.js" type="application/x-javascript" charset="utf-8"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({});
+        </script>
+
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script type="text/javascript">
 		var webSocket;
@@ -27,7 +38,16 @@
 	</script>
 </head>
 <body onload="connect()">
+<div id="buttons">
+			<div class="toolbar">
+				<h1>SPOT</h1>
+			</div>
+			<div style="margin-top: 10px;" class="scroll">
+				<a href="#" class="whiteButton" onclick="alert('hello')">Raise Hand</a>
+			</div>
+			
 	<input id="name" value="Anonymous" onchange="connect()"/>
 	<a href="javascript:raiseHand()">Raise Hand</a>
+		</div>
 </body>
 </html>
