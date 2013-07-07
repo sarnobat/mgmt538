@@ -45,13 +45,15 @@
 				if (received_msg == 'TEACHER_MISSING') {
 					teacherConnected = false;
 					//$('#raise_hand').hide();
-					$('#raise_hand').toggleClass('grayButton');
+					//$('#raise_hand').toggleClass('grayButton');
 				} else if (received_msg == 'TEACHER_JOINED') {
-					alert(received_msg);
-					$('#raise_hand').toggleClass('whiteButton');
+					//alert(received_msg);
+					$('#raise_hand').removeClass('grayButton');
+					$('#raise_hand').addClass('whiteButton');
 				} else if (received_msg == 'TEACHER_LEFT') {
-					alert(received_msg);
-					$('#raise_hand').toggleClass('grayButton');
+					//alert(received_msg);
+					$('#raise_hand').removeClass('whiteButton');
+					$('#raise_hand').addClass('grayButton');
 				} else {
 					teacherConnected = true;
 				}
