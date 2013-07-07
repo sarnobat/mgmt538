@@ -45,7 +45,9 @@ try {
 					log.info("Message");
 					try {
 						teacherConnection.sendMessage(data + " raised a hand.");
+						connection.sendMessage('RAISED');
 					} catch (IOException x) {
+						connection.sendMessage('FAIL');
 						doLog(x);
 						connection.close();
 					}

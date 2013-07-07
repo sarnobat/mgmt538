@@ -26,14 +26,14 @@
 	<script type="text/javascript">
 		var webSocket;
 		function connect() {
-			webSocket = new WebSocket("ws://localhost:8081/");			 
+			webSocket = new WebSocket("ws://netgear.rohidekar.com:8081/");			 
 			 webSocket.onopen = function() {
-				
+				// This gets called even if the socket doesn't get opened successfully.
 			 };
 			 webSocket.onmessage = function (evt) { 
 			 	// To clear participation
 				var received_msg = evt.data;
-				//alert(received_msg);
+				alert('Received something');
 			 };
 			 webSocket.onclose = function() { 
 			 };
@@ -45,12 +45,14 @@
 			if (webSocket == null) {
 				console.debug('2');
 				connect();
+			} else {
+				console.debug('Socket previously initialized');
 			}
 			console.debug('3');
 			var msg = "RAISE::" + $('input[id=name]').val();
-			console.debug('4');
+			console.debug('Attempting to communicate with server...');
 			webSocket.send(msg);
-			console.debug('5');
+			console.debug('Successfully sent message');
 		}
 	</script>
 </head>
