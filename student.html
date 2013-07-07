@@ -11,6 +11,12 @@
 
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({});
+            
+		   $(function(){
+                $('#raise_hand').tap(function(){
+                    raiseHand();
+                });
+            });
         </script>
 
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -52,7 +58,7 @@
 		</form>
 
 		<div style="margin-top: 10px;" class="scroll">
-			<a href="#" class="whiteButton" onclick="raiseHand()">Raise Hand</a>
+			<a href="#" class="whiteButton" id="raise_hand" onclick="raiseHand()">Raise Hand</a>
 		</div>		
 
 	</div>
