@@ -69,7 +69,7 @@ try {
 
 
 try {
-	final Server server = new Server(8082);
+	final Server server = new Server(8082); // TODO: rename to teacherServer
 	WebSocketHandler chatWebSocketHandler = new WebSocketHandler() {
 
 		public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
