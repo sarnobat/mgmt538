@@ -11,7 +11,13 @@ import org.eclipse.jetty.websocket.WebSocket;
 import org.eclipse.jetty.websocket.WebSocketHandler;
 import org.eclipse.jetty.websocket.WebSocket.Connection;
 final Logger log = Logger.getLogger("com.something.something");
+synchronized Logger getLogger() {
+	return log;
+}
 
+synchronized static void doLog(String str) {
+	println(str);
+}
 final Connection teacherConnection;
 final Map<WebSocket.OnTextMessage, Connection> studentConnections = new HashMap<WebSocket.OnTextMessage, Connection>();
 final Collection<WebSocket.OnTextMessage> studentSockets = new HashSet<WebSocket.OnTextMessage>();
@@ -35,9 +41,11 @@ try {
 				}
 
 				@Override public void onMessage(String data) {
+					log.info("Message");
 					try {
 						teacherConnection.sendMessage(data + " raised a hand.");
 					} catch (IOException x) {
+						doLog(x);
 						connection.close();
 					}
 				}
@@ -47,11 +55,12 @@ try {
 	chatWebSocketHandler.setHandler(new DefaultHandler());
 	studentServer.setHandler(chatWebSocketHandler);
 	studentServer.start();
-	new Runnable() {
+	/*new Runnable() {
 		@Override public void run() {
+			log.info('started 1');
 			studentServer.join();
 		}
-	};
+	};*/
 } catch (Throwable e) {
 	e.printStackTrace();
 }
@@ -86,13 +95,15 @@ try {
 	chatWebSocketHandler.setHandler(new DefaultHandler());
 	server.setHandler(chatWebSocketHandler);
 	server.start();
-	new Runnable() {
+	/*new Runnable() {
 		@Override public void run() {
+			log.info('started 2');
 			server.join();
 		}
-	};
+	};*/
 } catch (Throwable e) {
 	e.printStackTrace();
 }
 
 
+log.info('parent thread. Why dont the child threads get printed');
