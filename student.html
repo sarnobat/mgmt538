@@ -42,13 +42,13 @@
 				// To clear participation
 				var received_msg = evt.data;
 				if (received_msg == 'TEACHER_MISSING') {
-					$('#raise_hand').removeClass('whiteButton');
+					$('#raise_hand').removeClass();
 					$('#raise_hand').addClass('grayButton');
 				} else if (received_msg == 'TEACHER_JOINED') {
-					$('#raise_hand').removeClass('grayButton');
+					$('#raise_hand').removeClass();
 					$('#raise_hand').addClass('whiteButton');
 				} else if (received_msg == 'TEACHER_LEFT') {
-					$('#raise_hand').removeClass('whiteButton');
+					$('#raise_hand').removeClass();
 					$('#raise_hand').addClass('grayButton');
 				} 
 				console.debug('checkTeacherAvailability.onmessage() end');
@@ -72,6 +72,8 @@
 				console.debug('attempting to send after connect attempt');
 				var msg = "RAISE::" + $('input[id=name]').val();
 				webSocket.send(msg);
+				$('#raise_hand').removeClass();
+				$('#raise_hand').addClass('greenButton');
 				console.debug('sent after connect attempt');
 				console.debug('onopen() end');
 			};
@@ -99,6 +101,8 @@
 				var msg = "RAISE::" + $('input[id=name]').val();
 				console.debug('Attempting to communicate with server...');
 				webSocket.send(msg);
+				$('#raise_hand').removeClass();
+				$('#raise_hand').addClass('greenButton');
 				console.debug('Successfully sent message');
 			}
 			
