@@ -72,12 +72,22 @@
 			webSocket.onopen = function() {
 				// This gets called even if the socket doesn't get opened successfully.
 				console.debug('attempting to send after connect attempt');
-				var msg = "RAISE::" + $('input[id=name]').val();
-				webSocket.send(msg);
-				$('#raise_hand').removeClass();
-				$('#raise_hand').addClass('greenButton');
+				if ($('#raise_hand').html() == "Lower hand") {
+					$('#raise_hand').removeClass();
+					$('#raise_hand').addClass('whiteButton');
+					$('#raise_hand').html("Raise hand");
+					var msg = "LOWER::" + $('input[id=name]').val();
+					webSocket.send(msg);
+				} else {
+					var msg = "RAISE::" + $('input[id=name]').val();
+					webSocket.send(msg);
+					$('#raise_hand').removeClass();
+					$('#raise_hand').addClass('greenButton');
+					$('#raise_hand').html("Lower hand");
+				}
 				console.debug('sent after connect attempt');
 				console.debug('onopen() end');
+				
 			};
 			webSocket.onmessage = function (evt) { 
 				// To clear participation
@@ -100,11 +110,19 @@
 			} else {
 				console.debug('Socket previously initialized');
 				console.debug('3');
-				var msg = "RAISE::" + $('input[id=name]').val();
-				console.debug('Attempting to communicate with server...');
-				webSocket.send(msg);
-				$('#raise_hand').removeClass();
-				$('#raise_hand').addClass('greenButton');
+				if ($('#raise_hand').html() == "Lower hand") {
+					$('#raise_hand').removeClass();
+					$('#raise_hand').addClass('whiteButton');
+					$('#raise_hand').html("Raise hand");
+					var msg = "LOWER::" + $('input[id=name]').val();
+					webSocket.send(msg);
+				} else {
+					var msg = "RAISE::" + $('input[id=name]').val();
+					webSocket.send(msg);
+					$('#raise_hand').removeClass();
+					$('#raise_hand').addClass('greenButton');
+					$('#raise_hand').html("Lower hand");
+				}
 				console.debug('Successfully sent message');
 			}
 			
