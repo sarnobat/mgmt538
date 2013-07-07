@@ -25,24 +25,31 @@
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script type="text/javascript">
 		var webSocket;
+		function checkTeacherAvailability() {
+		}
 		function connectAndSend() {
+			console.debug('connectAndSend() end');
 			//webSocket = new WebSocket("ws://localhost:8081/");
 			webSocket = new WebSocket("ws://netgear.rohidekar.com:8081/");
 			console.debug('webSocket now initialized');
-			 webSocket.onopen = function() {
+			webSocket.onopen = function() {
 				// This gets called even if the socket doesn't get opened successfully.
 				console.debug('attempting to send after connect attempt');
 				var msg = "RAISE::" + $('input[id=name]').val();
 				webSocket.send(msg);
 				console.debug('sent after connect attempt');
-			 };
-			 webSocket.onmessage = function (evt) { 
-			 	// To clear participation
+				console.debug('onopen() end');
+			};
+			webSocket.onmessage = function (evt) { 
+				// To clear participation
 				var received_msg = evt.data;
 				alert(received_msg);
-			 };
-			 webSocket.onclose = function() { 
-			 };
+				console.debug('onmessage() end');
+			};
+			webSocket.onclose = function() { 
+				console.debug('onclose() end');
+			};
+			console.debug('connectAndSend() end');
 		}
 		
 		function raiseHand() {
@@ -63,7 +70,7 @@
 		}
 	</script>
 </head>
-<body>
+<body onload="checkTeachAvailability()">
 	<div id="jqt">
 		<div id="callbacks">
 			<div class="toolbar">
