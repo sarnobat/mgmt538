@@ -38,6 +38,7 @@
 	</script>
 </head>
 <body onload="connect()">
+<div class="current">
 	<div id="buttons">
 
 		<div class="toolbar">
@@ -48,7 +49,15 @@
 			<a href="#" class="whiteButton" onclick="raiseHand()">Raise Hand</a>
 		</div>		
 
-		<input id="name" value="Anonymous" onchange="connect()"/>
+                
+                <form>
+                    <ul>
+                        <li><input id="name" type="text" value="Anonymous" onchange="connect()"/></li>
+                    </ul>
+                </form>
+		
+		</form>
+	</div>
 	</div>
 </body>
 </html>
