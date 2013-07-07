@@ -27,18 +27,19 @@
 			});
 		});
 		var webSocket;
+		var webSocket2;
 		function checkTeacherAvailability() {
 			console.debug('checkTeacherAvailability() - begin');
 			connect();
-			webSocket.onopen = function() {
+			webSocket2.onopen = function() {
 				// This gets called even if the socket doesn't get opened successfully.
 				console.debug('attempting to send after connect attempt');
 				var msg = "LOAD::" + $('input[id=name]').val();
-				webSocket.send(msg);
+				webSocket2.send(msg);
 				console.debug('sent after connect attempt');
 				console.debug('checkTeacherAvailability.onopen() end');
 			};
-			webSocket.onmessage = function (evt) { 
+			webSocket2.onmessage = function (evt) { 
 				// To clear participation
 				var received_msg = evt.data;
 				if (received_msg == 'TEACHER_MISSING') {
@@ -53,7 +54,7 @@
 				} 
 				console.debug('checkTeacherAvailability.onmessage() end');
 			};
-			webSocket.onclose = function() { 
+			webSocket2.onclose = function() { 
 				console.debug('onclose() end');
 			};
 			console.debug('checkTeacherAvailability() - end');
@@ -61,6 +62,7 @@
 		function connect() {
 			//webSocket = new WebSocket("ws://localhost:8081/");
 			webSocket = new WebSocket("ws://netgear.rohidekar.com:8081/");
+			webSocket2 = new WebSocket("ws://netgear.rohidekar.com:8081/");
 		}
 		// DEPRECATED
 		function connectAndSend() {

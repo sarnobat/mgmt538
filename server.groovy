@@ -58,7 +58,7 @@ try {
 						connection.sendMessage('TEACHER_PRESENT');
 					}
 					try {
-						teacherConnection.sendMessage(data + " raised a hand.");
+						teacherConnection.sendMessage(data);
 						log.info("Successfully messaged the teacher");
 						connection.sendMessage('RAISED');
 					} catch (Exception x) {
