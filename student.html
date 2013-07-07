@@ -27,12 +27,36 @@
 		var webSocket;
 		function checkTeacherAvailability() {
 			console.debug('checkTeacherAvailability() - begin');
+			connect();
+			webSocket.onopen = function() {
+				// This gets called even if the socket doesn't get opened successfully.
+				console.debug('attempting to send after connect attempt');
+				var msg = "LOAD::" + $('input[id=name]').val();
+				webSocket.send(msg);
+				console.debug('sent after connect attempt');
+				console.debug('checkTeacherAvailability.onopen() end');
+			};
+			webSocket.onmessage = function (evt) { 
+				// To clear participation
+				var received_msg = evt.data;
+				if (received_msg == 'TEACHER_MISSING') {
+					alert(received_msg);
+					$('#raise_hand').toggleClass('grayButton');
+				}
+				console.debug('checkTeacherAvailability.onmessage() end');
+			};
+			webSocket.onclose = function() { 
+				console.debug('onclose() end');
+			};
 			console.debug('checkTeacherAvailability() - end');
+		}
+		function connect() {
+			//webSocket = new WebSocket("ws://localhost:8081/");
+			webSocket = new WebSocket("ws://netgear.rohidekar.com:8081/");
 		}
 		function connectAndSend() {
 			console.debug('connectAndSend() end');
-			//webSocket = new WebSocket("ws://localhost:8081/");
-			webSocket = new WebSocket("ws://netgear.rohidekar.com:8081/");
+			connect();
 			console.debug('webSocket now initialized');
 			webSocket.onopen = function() {
 				// This gets called even if the socket doesn't get opened successfully.
