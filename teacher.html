@@ -21,7 +21,8 @@
 			 	var received_msg = evt.data;
 				$('div[id=output]').prepend(received_msg + "<br>");
 			 };
-			 webSocket.onclose = function() {
+			 webSocket.onclose = function() {			 
+				webSocket.send("TEACHER_LEFT");
 			 };
 		}
 	</script>

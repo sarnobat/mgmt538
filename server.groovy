@@ -99,14 +99,15 @@ try {
 					teacherConnection = conn;
 					log.info("Teacher just connected");
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
-					//	studentConnections.get(studentSocket).sendMessage(data);
-						//println(studentSocket);
 						studentSocket.sendMessage("TEACHER_JOINED");
 					}
 				}
 
 				@Override public void onClose(int closeCode, String message) {
 					teacherConnection = null;
+					for (WebSocket.FrameConnection studentSocket : studentSockets) {
+						studentSocket.sendMessage("TEACHER_LEFT");
+					}
 				}
 
 				@Override public void onMessage(String data) {
