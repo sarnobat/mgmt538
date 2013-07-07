@@ -25,7 +25,7 @@
 	<script type="text/javascript">
 		var webSocket;
 		function connect() {
-			webSocket = new WebSocket("ws://netgear.rohidekar.com:8081/");			 
+			webSocket = new WebSocket("ws://localhost:8081/");			 
 			 webSocket.onopen = function() {
 				
 			 };
@@ -39,12 +39,21 @@
 		}
 		
 		function raiseHand() {
+			console.debug('1');
+			// Should not be dependent on teacher's page being open
+			if (webSocket == null) {
+				console.debug('2');
+				connect();
+			}
+			console.debug('3');
 			var msg = "RAISE::" + $('input[id=name]').val();
+			console.debug('4');
 			webSocket.send(msg);
+			console.debug('5');
 		}
 	</script>
 </head>
-<body onload="connect()">
+<body>
 	<div id="jqt">
 		<div id="callbacks">
 			<div class="toolbar">
