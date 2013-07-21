@@ -64,7 +64,6 @@ try {
 						try {
 							int inserts = run.update( "INSERT INTO students (name,raised,correct) VALUES ('" + name + "',1,0)");
 						} catch (Exception e) {
-							int updates = run.update( "UPDATE students SET raised=raised+1 WHERE name='" + name + "'");
 						}
 					} else if  (data.startsWith("LOWER::")) {
 						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
@@ -128,6 +127,7 @@ try {
 						String name = data.substring(9,data.length());
 						try {
 							int updates = run.update( "UPDATE students SET correct=correct+1 WHERE name='" + name + "'");
+							int updates2 = run.update( "UPDATE students SET raised=raised+1 WHERE name='" + name + "'");
 						} catch (Exception e) {
 							log.info(e);
 						}
