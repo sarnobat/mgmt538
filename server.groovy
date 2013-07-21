@@ -94,6 +94,9 @@ try {
 
 				@Override public void onMessage(String data) {
 					log.info(data);
+					if (data.startsWith("CORRECT::")) {
+						// do JDBC here
+					}
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
 						studentSocket.sendMessage(data);
 					}
