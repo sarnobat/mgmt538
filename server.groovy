@@ -33,36 +33,36 @@ try {
 	WebSocketHandler chatWebSocketHandler = new WebSocketHandler() {
 		public WebSocket doWebSocketConnect(HttpServletRequest request2, String protocol2) {
 			return new WebSocket.OnTextMessage() {
-				Connection connection;
+				Connection studentConnection;
 				@Override public void onOpen(Connection conn) {
 					log.info("Message");
-					connection = conn;
+					studentConnection = conn;
 					//conn.sendMessage('success')
-					studentSockets.add(connection)
-					studentConnections.put(this, connection);
+					studentSockets.add(studentConnection)
+					studentConnections.put(this, studentConnection);
 					println('opened student');
 				}
 
 				@Override public void onClose(int closeCode, String message) {
-					studentSockets.remove(connection);
+					studentSockets.remove(studentConnection);
 				}
 
 				@Override public void onMessage(String data) {
 					log.info("Message");
 					if (teacherConnection == null) {
 						log.info("Teacher not connected");
-						connection.sendMessage('TEACHER_MISSING');
+						studentConnection.sendMessage('TEACHER_MISSING');
 						return;
 					} else {
 						log.info("Teacher is connected");
-						connection.sendMessage('TEACHER_PRESENT');
+						studentConnection.sendMessage('TEACHER_PRESENT');
 					}
 					try {
 						teacherConnection.sendMessage(data);
 						log.info("Successfully messaged the teacher");
-						connection.sendMessage('RAISED');
+						studentConnection.sendMessage('RAISED');
 					} catch (Exception x) {
-						connection.sendMessage('FAIL: ' + x.getStackTrace());
+						studentConnection.sendMessage('FAIL: ' + x.getStackTrace());
 						log.info("Exception: " + x.getStackTrace());
 					}
 				}
