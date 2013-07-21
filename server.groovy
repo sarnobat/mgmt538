@@ -79,11 +79,17 @@ try {
 					}
 					
 					try {
+						log.info("Preparing json to send to teacher client");
 						// TODO: add the stats here
-						teacherConnection.sendMessage(data);
+						JSONObject json = new JSONObject();
+						json.put("name", data);
+						log.info("About to send json to teacher client");
+						teacherConnection.sendMessage(json.toString());
+						log.info("Sent json to teacher client");
 						studentConnection.sendMessage('ACK::' + data);
 					} catch (Exception x) {
 						studentConnection.sendMessage('FAIL: ' + x.getStackTrace());
+						log.info("json failure: " + x.toString());
 					}
 				}
 			};
