@@ -16,6 +16,9 @@
 			$('#students3').text("");
 		}
 		var webSocket ;
+		function correct(name) {
+			alert(name);
+		}
 		function connect() {
 			 webSocket = new WebSocket("ws://netgear.rohidekar.com:8082/");
 			 //webSocket = new WebSocket("ws://localhost:8082/");
@@ -25,9 +28,10 @@
 			 webSocket.onmessage = function (evt) { 
 			 	var received_msg = evt.data;
 				if (received_msg.substring(0,7) == 'RAISE::') {
+					var name = received_msg.substring(7, received_msg.length)
 					$("#students3").append('<tr><td align=center><a>'
-					  + received_msg.substring(7, received_msg.length)
-					  + '</a></td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct"></td></tr>')
+					  + name
+					  + '</a></td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="alert(\'hi\')"></td></tr>')
 				}
 			 };
 			 webSocket.onclose = function() {			 
