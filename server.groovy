@@ -119,7 +119,7 @@ try {
 	teacherServer.start();
 	new Runnable() {
 		@Override public void run() {
-			log.info('started 2');
+			log.info('started teacherServer');
 			teacherServer.join();
 		}
 	};
