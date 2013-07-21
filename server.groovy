@@ -49,7 +49,7 @@ try {
 					}
 					try {
 						teacherConnection.sendMessage(data);
-						studentConnection.sendMessage('RAISED');
+						studentConnection.sendMessage('ACK::' + data);
 					} catch (Exception x) {
 						studentConnection.sendMessage('FAIL: ' + x.getStackTrace());
 					}
