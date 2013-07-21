@@ -43,27 +43,30 @@
 			webSocket2.onmessage = function (evt) { 
 				// To clear participation
 				var received_msg = evt.data;
-				if (received_msg == 'TEACHER_MISSING') {
-					setButtonEnabled(false);
-				} else if (received_msg == 'TEACHER_JOINED') {
-					setButtonEnabled(true);
-				} else if (received_msg == 'TEACHER_PRESENT') {
-					setButtonEnabled(true);
-				} else if (received_msg == 'TEACHER_LEFT') {
-					setButtonEnabled(false);
-				} else if (received_msg == 'CLEAR') {
-					changeButton();
-					setButtonEnabled(true);
-				} else {
-					alert(received_msg);
-					setButtonEnabled(false);
-				} 
-				console.debug('checkTeacherAvailability.onmessage() end');
+				handleMessage(received_msg)
 			};
 			webSocket2.onclose = function() { 
-				console.debug('onclose() end');
+				setButtonEnabled(false);
 			};
 			console.debug('checkTeacherAvailability() - end');
+		}
+		function handleMessage(received_msg) {
+			if (received_msg == 'TEACHER_MISSING') {
+				setButtonEnabled(false);
+			} else if (received_msg == 'TEACHER_JOINED') {
+				setButtonEnabled(true);
+			} else if (received_msg == 'TEACHER_PRESENT') {
+				setButtonEnabled(true);
+			} else if (received_msg == 'TEACHER_LEFT') {
+				setButtonEnabled(false);
+			} else if (received_msg == 'CLEAR') {
+				changeButton();
+				setButtonEnabled(true);
+			} else {
+				alert(received_msg);
+				setButtonEnabled(false);
+			} 
+			console.debug('checkTeacherAvailability.onmessage() end');
 		}
 		function setButtonEnabled(enabled) {
 			teacherPresent = enabled;
@@ -102,6 +105,7 @@
 			};
 			webSocket.onclose = function() { 
 				console.debug('onclose() end');
+				alert('closed 1');
 			};
 			console.debug('connectAndSend() end');
 		}
