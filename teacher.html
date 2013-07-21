@@ -25,7 +25,7 @@
 			 webSocket.onmessage = function (evt) { 
 			 	var received_msg = evt.data;
 				if (received_msg.substring(0,7) == 'RAISE::') {
-					$("#students").append('<li>' + received_msg.substring(7, received_msg.length) + '</li>')
+					$("#students").append('<li class=output><a>' + received_msg.substring(7, received_msg.length) + '</a></li>')
 				}
 			 };
 			 webSocket.onclose = function() {			 
