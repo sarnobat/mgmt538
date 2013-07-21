@@ -1,10 +1,15 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <style>
+      body{
+        padding-top: 60px;
+      }
+    </style>
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script type="text/javascript">
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>	<script type="text/javascript">
 		
 		function clearConsole() {
 			webSocket.send("CLEAR");
@@ -29,6 +34,79 @@
 </head>
 <body onload="connect()">
 	<div id="output" value=""></div>
-	<input type="button" value="clear" onclick="clearConsole()">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <h4 style="font-size:18px;" class="pagination-centered">Class Participation Tracker</h4>
+        </div>
+      </div>
+    </div>   
+    
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="slidebar-fluid">
+            <h3>NAMES</h3>
+            <ul class="nav nav-list">             
+              <li class="output" value=""><a>Name 0</a></li>
+              <li class="output" value=""><a>Name 1</a></li>
+              <li class="output" value=""><a>Name 2</a></li>
+              <li class="output" value=""><a>Name 3</a></li>
+              <li class="output" value=""><a>Name x</a></li>
+            </ul>
+            <div style="padding-left:10px;">
+            <input type="button" value="clear" onclick="clearConsole()">
+            </div>
+          </div>  
+        </div>
+        <div class="span9">
+          <div class="row">
+            <div class="span4">
+              <h3>QUESTIONS</h3>
+            </div>
+            <div class="span3">
+              <h3>PARTICIPATOR</h3>
+            </div>
+            <div class="span3">
+                <h3>RESULT</h3>
+            </div>
+          </div>
+          <div class="row" class="questions">
+            <div class="span4" id="question_1">
+                <span>What is your name?</span>
+            </div>
+            <div class="span3" id="participator_1">
+                <input type="text" class="span9">
+            </div>
+            <div class="span2">
+                <input id="submit_1" type="button" class="btn" value="Correct">
+            </div>
+          </div>
+          <div class="row" class="questions">
+            <div class="span4" id="question_2">
+                <span>Who is the first President of Russia?</span>
+            </div>
+            <div class="span3" id="participator_2">
+                <input type="text" class="span9">
+            </div>
+            <div class="span2">
+                <input id="submit_2" type="button" class="btn" value="Correct">
+            </div>
+          </div>
+          <div class="row" class="questions">
+            <div class="span4" id="question_3">
+                <span>Who invented electricity?</span>
+            </div>
+            <div class="span3" id="participator_3">
+                <input type="text" class="span9">
+            </div>
+            <div class="span2">
+                <input id="submit_3" type="button" class="btn" value="Correct">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </body>
 </html>
