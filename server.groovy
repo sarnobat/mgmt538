@@ -1,3 +1,7 @@
+import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.*;
+
 import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -11,6 +15,7 @@ import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.websocket.WebSocket;
 import org.eclipse.jetty.websocket.WebSocketHandler;
 import org.eclipse.jetty.websocket.WebSocket.Connection;
+
 final Logger log = Logger.getLogger("com.something.something");
 // Strange, I think the logger now works to stdout in all threads. See what happens if you remove this.
 FileHandler handler = new FileHandler("/home/sarnobat/Desktop/server.txt")
@@ -20,6 +25,13 @@ log.addHandler(handler);
 synchronized Logger getLogger() {
 	return log;
 }
+
+Class.forName("org.sqlite.JDBC");
+BasicDataSource dataSource = new BasicDataSource();
+dataSource.setDriverClassName("org.sqlite.JDBC");
+dataSource.setUrl("jdbc:sqlite:students.db");
+QueryRunner run = new QueryRunner(dataSource);
+
 
 final Connection teacherConnection;
 final Map<WebSocket.OnTextMessage, Connection> studentConnections = new HashMap<WebSocket.OnTextMessage, Connection>();
@@ -47,6 +59,24 @@ try {
 					} else {
 						studentConnection.sendMessage('TEACHER_PRESENT');
 					}
+					
+					if (data.startsWith("RAISE::")) {
+						String name = data.substring(7,data.length());
+						try {
+							int inserts = run.update( "INSERT INTO students (name,raised,correct) VALUES ('" + name + "',1,0)");
+							log.info("New student created");
+						} catch (Exception e) {
+							log.info("Student already exists, attempting to increment raise count...");
+							int updates = run.update( "UPDATE students SET raised=raised+1 WHERE name='" + name + "'");
+							log.info("Student hand raise incremented");
+						}
+					} else if  (data.startsWith("LOWER::")) {
+						log.info(data);
+						String name = data.substring(7,data.length());
+						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
+						log.info("Decrement completed");
+					}
+					
 					try {
 						teacherConnection.sendMessage(data);
 						studentConnection.sendMessage('ACK::' + data);
@@ -95,7 +125,12 @@ try {
 				@Override public void onMessage(String data) {
 					log.info(data);
 					if (data.startsWith("CORRECT::")) {
-						// do JDBC here
+						String name = data.substring(9,data.length());
+						try {
+							int updates = run.update( "UPDATE students SET correct=correct+1 WHERE name='" + name + "'");
+						} catch (Exception e) {
+							log.info(e);
+						}
 					}
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
 						studentSocket.sendMessage(data);
@@ -115,4 +150,10 @@ try {
 	};
 } catch (Throwable e) {
 	e.printStackTrace();
+}
+
+void incrementCorrect(String name) {
+	log.info("incrementCorrect() - begin");
+	
+	log.info("incrementCorrect() - end");
 }
