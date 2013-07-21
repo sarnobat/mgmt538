@@ -63,11 +63,7 @@ try {
 						connection.sendMessage('RAISED');
 					} catch (Exception x) {
 						connection.sendMessage('FAIL: ' + x.getStackTrace());
-						//doLog(x.getStackTrace());
-						//doLog(x.toString());
-						//getLogger().info(x.toString());
 						log.info("Exception: " + x.getStackTrace());
-						//connection.close();
 					}
 				}
 			};
@@ -78,7 +74,7 @@ try {
 	studentServer.start();
 	new Runnable() {
 		@Override public void run() {
-			log.info('started 1');
+			log.info('started studentServer');
 			studentServer.join();
 		}
 	};
