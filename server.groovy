@@ -89,7 +89,7 @@ try {
 
 
 try {
-	final Server server = new Server(8082); // TODO: rename to teacherServer
+	final Server teacherServer = new Server(8082); // TODO: rename to teacherServer
 	WebSocketHandler chatWebSocketHandler = new WebSocketHandler() {
 
 		public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
@@ -121,12 +121,12 @@ try {
 		}
 	};
 	chatWebSocketHandler.setHandler(new DefaultHandler());
-	server.setHandler(chatWebSocketHandler);
-	server.start();
+	teacherServer.setHandler(chatWebSocketHandler);
+	teacherServer.start();
 	new Runnable() {
 		@Override public void run() {
 			log.info('started 2');
-			server.join();
+			teacherServer.join();
 		}
 	};
 } catch (Throwable e) {
