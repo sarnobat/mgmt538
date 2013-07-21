@@ -70,9 +70,9 @@ try {
 						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
 					}
 					
-					Map[] result1 = run.query("SELECT name,raised,correct FROM students WHERE name = ?", new MapListHandler(), name);
-					String raisedCount = result1.length > 0 ? result1[0].get("raised") : 0;
-					String correctCount = result1.length > 0 ? result1[0].get("correct") : 0;
+					Map[] studentRows = run.query("SELECT name,raised,correct FROM students WHERE name = ?", new MapListHandler(), name);
+					String raisedCount = studentRows.length > 0 ? studentRows[0].get("raised") : 0;
+					String correctCount = studentRows.length > 0 ? studentRows[0].get("correct") : 0;
 					try {
 						JSONObject json = new JSONObject();
 						json.put("name", data);
