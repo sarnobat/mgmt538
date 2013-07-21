@@ -33,7 +33,6 @@ dataSource.setDriverClassName("org.sqlite.JDBC");
 dataSource.setUrl("jdbc:sqlite:students.db");
 QueryRunner run = new QueryRunner(dataSource);
 
-
 final Connection teacherConnection;
 final Map<WebSocket.OnTextMessage, Connection> studentConnections = new HashMap<WebSocket.OnTextMessage, Connection>();
 final Collection<WebSocket.OnTextMessage> studentSockets = new HashSet<WebSocket.OnTextMessage>();
@@ -60,9 +59,9 @@ try {
 					} else {
 						studentConnection.sendMessage('TEACHER_PRESENT');
 					}
-					
+					String name = data.substring(7,data.length());					
 					if (data.startsWith("RAISE::")) {
-						String name = data.substring(7,data.length());
+						//String name = data.substring(7,data.length());
 						try {
 							int inserts = run.update( "INSERT INTO students (name,raised,correct) VALUES ('" + name + "',1,0)");
 							log.info("New student created");
@@ -73,16 +72,22 @@ try {
 						}
 					} else if  (data.startsWith("LOWER::")) {
 						log.info(data);
-						String name = data.substring(7,data.length());
+						//String name = data.substring(7,data.length());
 						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
 						log.info("Decrement completed");
 					}
 					
+					// find out what the student's latest stats are
+					Map[] result1 = run.query("SELECT name,raised,correct FROM students WHERE name = ?", new MapListHandler(), name);
+					String raisedCount = result1.length > 0 ? result1[0].get("raised") : 0;
+					String correctCount = result1.length > 0 ? result1[0].get("correct") : 0;
 					try {
 						log.info("Preparing json to send to teacher client");
 						// TODO: add the stats here
 						JSONObject json = new JSONObject();
 						json.put("name", data);
+						json.put("raised", raisedCount);
+						json.put("correct", correctCount);
 						log.info("About to send json to teacher client");
 						teacherConnection.sendMessage(json.toString());
 						log.info("Sent json to teacher client");

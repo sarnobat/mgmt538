@@ -29,7 +29,7 @@
 					var val = obj.name;
 					var name = val.substring(7, val.length)
 					$("#students3").append('<tr><td align=center><a>'
-					  + name
+					  + name + " " + obj.raised + " " + obj.correct + " "
 					  + '</a></td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td></tr>')
 			 	}
 				if (received_msg.substring(0,7) == 'RAISE::') {
