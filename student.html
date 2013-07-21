@@ -28,6 +28,7 @@
 		});
 		var webSocket;
 		var webSocket2;
+		var teacherPresent = false;
 		function checkTeacherAvailability() {
 			console.debug('checkTeacherAvailability() - begin');
 			connect();
@@ -43,16 +44,19 @@
 				// To clear participation
 				var received_msg = evt.data;
 				if (received_msg == 'TEACHER_MISSING') {
-					$('#raise_hand').removeClass();
-					$('#raise_hand').addClass('grayButton');
+					setButtonEnabled(false);
 				} else if (received_msg == 'TEACHER_JOINED') {
-					$('#raise_hand').removeClass();
-					$('#raise_hand').addClass('whiteButton');
+					setButtonEnabled(true);
+				} else if (received_msg == 'TEACHER_PRESENT') {
+					setButtonEnabled(true);
 				} else if (received_msg == 'TEACHER_LEFT') {
-					$('#raise_hand').removeClass();
-					$('#raise_hand').addClass('grayButton');
+					setButtonEnabled(false);
+				} else if (received_msg == 'CLEAR') {
+					changeButton();
+					setButtonEnabled(true);
 				} else {
 					alert(received_msg);
+					setButtonEnabled(false);
 				} 
 				console.debug('checkTeacherAvailability.onmessage() end');
 			};
@@ -60,6 +64,18 @@
 				console.debug('onclose() end');
 			};
 			console.debug('checkTeacherAvailability() - end');
+		}
+		function setButtonEnabled(enabled) {
+			teacherPresent = enabled;
+			if (enabled) {
+				$('#raise_hand').removeClass();
+				$('#raise_hand').addClass('whiteButton');
+				$('#raise_hand').html("Raise hand");
+			} else {			
+				$('#raise_hand').removeClass();
+				$('#raise_hand').addClass('grayButton');
+				$('#raise_hand').html("Professor not logged in");
+			}
 		}
 		function connect() {
 			//webSocket = new WebSocket("ws://localhost:8081/");
@@ -74,10 +90,9 @@
 			webSocket.onopen = function() {
 				// This gets called even if the socket doesn't get opened successfully.
 				console.debug('attempting to send after connect attempt');
-				lowerHand();
+				changeButton();
 				console.debug('sent after connect attempt');
 				console.debug('onopen() end');
-				
 			};
 			webSocket.onmessage = function (evt) { 
 				// To clear participation
@@ -99,25 +114,34 @@
 				connectAndSend();
 			} else {
 				console.debug('Socket previously initialized');
-				lowerHand();
+				changeButton();
 				console.debug('Successfully sent message');
 			}
 			
 		}
-		function lowerHand() {
+		function changeButton() {
 			if ($('#raise_hand').html() == "Lower hand") {
-				$('#raise_hand').removeClass();
-				$('#raise_hand').addClass('whiteButton');
-				$('#raise_hand').html("Raise hand");
-				var msg = "LOWER::" + $('input[id=name]').val();
-				webSocket.send(msg);
+				lowerHand();
 			} else {
-				var msg = "RAISE::" + $('input[id=name]').val();
-				webSocket.send(msg);
-				$('#raise_hand').removeClass();
-				$('#raise_hand').addClass('greenButton');
-				$('#raise_hand').html("Lower hand");
+				raiseHandDo();
 			}
+		}
+		function raiseHandDo() {
+			if (!teacherPresent) {
+				return;
+			}
+			var msg = "RAISE::" + $('input[id=name]').val();
+			webSocket.send(msg);
+			$('#raise_hand').removeClass();
+			$('#raise_hand').addClass('greenButton');
+			$('#raise_hand').html("Lower hand");
+		}
+		function lowerHand() {
+			$('#raise_hand').removeClass();
+			$('#raise_hand').addClass('whiteButton');
+			$('#raise_hand').html("Raise hand");
+			var msg = "LOWER::" + $('input[id=name]').val();
+			webSocket.send(msg);
 		}
 	</script>
 </head>
@@ -137,7 +161,7 @@
 				</ul>
 			</form>
 				<ul class="rounded">
-					<li><a href="#" class="whiteButton" id="raise_hand">Raise hand</a></li>
+					<li><a href="#" class="grayButton" id="raise_hand">Raise hand</a></li>
 				</ul>
 		</div>
 		
