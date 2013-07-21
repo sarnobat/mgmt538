@@ -13,7 +13,7 @@
 		
 		function clearConsole() {
 			webSocket.send("CLEAR");
-			$('#students').text("");
+			$('#students3').text("");
 		}
 		var webSocket ;
 		function connect() {
@@ -25,9 +25,9 @@
 			 webSocket.onmessage = function (evt) { 
 			 	var received_msg = evt.data;
 				if (received_msg.substring(0,7) == 'RAISE::') {
-					$("#students").append('<li class=output><a>' + received_msg.substring(7, received_msg.length) + '</a></li>')
-					$("#students2").append('<div class=row><div class=span2><a>' + received_msg.substring(7, received_msg.length) + '</a></div><div class=span3 class=output><input id="submit_1" type="button" class="btn" value="Partial credit"></div><div class=span4><input id="submit_1" type="button" class="btn" value="Correct"></div></div>')
-					$("#students3").append('<tr><td><a>' + received_msg.substring(7, received_msg.length) + '</a></td><td><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td><input id="submit_1" type="button" class="btn" value="Correct"></td></tr>')
+					$("#students3").append('<tr><td align=center><a>'
+					  + received_msg.substring(7, received_msg.length)
+					  + '</a></td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct"></td></tr>')
 				}
 			 };
 			 webSocket.onclose = function() {			 
@@ -46,68 +46,11 @@
       </div>
     </div>   
     
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
-          <div class="slidebar-fluid">
-            <h3>NAMES</h3>
-            <ul id="students" class="nav nav-list">
-            </ul>
-            <div style="padding-left:10px;">
-            	<input type="button" value="clear" onclick="clearConsole()">
-            </div>
-          </div>  
-        </div>
-        <form>
-        <table id="students3">
-        	<tr><th>Student</th><th></th><th></th></tr>
+		<center><input type="button" value="clear" onclick="clearConsole()"></center>
+		<br>
+        <table id="students3" width="100%">
+        	<tr><th width="33%"Student</th><th width="33%"></th><th width="33%"></th></tr>
         </table>
-        <div id="students2" class="span9">
-          <div class="row">
-            <div class="span4">
-              <h3>Nothing</h3>
-            </div>
-            <div class="span3">
-              <h3>PARTICIPATOR</h3>
-            </div>
-            <div class="span3">
-                <h3>RESULT</h3>
-            </div>
-          </div>
-          <div class="row" class="questions">
-            <div class="span4" id="question_1">
-            </div>
-            <div class="span3" id="participator_1">
-                <input type="text" class="span9">
-            </div>
-            <div class="span2">
-                <input id="submit_1" type="button" class="btn" value="Correct">
-            </div>
-          </div>
-          <div class="row" class="questions">
-            <div class="span4" id="question_2">
-            </div>
-            <div class="span3" id="participator_2">
-                <input type="text" class="span9">
-            </div>
-            <div class="span2">
-                <input id="submit_2" type="button" class="btn" value="Correct">
-            </div>
-          </div>
-          <div class="row" class="questions">
-            <div class="span4" id="question_3">
-            </div>
-            <div class="span3" id="participator_3">
-                <input type="text" class="span9">
-            </div>
-            <div class="span2">
-                <input id="submit_3" type="button" class="btn" value="Correct">
-            </div>
-          </div>
-        </div>
-        </form>
-      </div>
-    </div>
 
 </body>
 </html>
