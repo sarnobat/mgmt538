@@ -51,6 +51,8 @@
 				} else if (received_msg == 'TEACHER_LEFT') {
 					$('#raise_hand').removeClass();
 					$('#raise_hand').addClass('grayButton');
+				} else {
+					alert(received_msg);
 				} 
 				console.debug('checkTeacherAvailability.onmessage() end');
 			};
@@ -72,19 +74,7 @@
 			webSocket.onopen = function() {
 				// This gets called even if the socket doesn't get opened successfully.
 				console.debug('attempting to send after connect attempt');
-				if ($('#raise_hand').html() == "Lower hand") {
-					$('#raise_hand').removeClass();
-					$('#raise_hand').addClass('whiteButton');
-					$('#raise_hand').html("Raise hand");
-					var msg = "LOWER::" + $('input[id=name]').val();
-					webSocket.send(msg);
-				} else {
-					var msg = "RAISE::" + $('input[id=name]').val();
-					webSocket.send(msg);
-					$('#raise_hand').removeClass();
-					$('#raise_hand').addClass('greenButton');
-					$('#raise_hand').html("Lower hand");
-				}
+				lowerHand();
 				console.debug('sent after connect attempt');
 				console.debug('onopen() end');
 				
@@ -109,23 +99,25 @@
 				connectAndSend();
 			} else {
 				console.debug('Socket previously initialized');
-				console.debug('3');
-				if ($('#raise_hand').html() == "Lower hand") {
-					$('#raise_hand').removeClass();
-					$('#raise_hand').addClass('whiteButton');
-					$('#raise_hand').html("Raise hand");
-					var msg = "LOWER::" + $('input[id=name]').val();
-					webSocket.send(msg);
-				} else {
-					var msg = "RAISE::" + $('input[id=name]').val();
-					webSocket.send(msg);
-					$('#raise_hand').removeClass();
-					$('#raise_hand').addClass('greenButton');
-					$('#raise_hand').html("Lower hand");
-				}
+				lowerHand();
 				console.debug('Successfully sent message');
 			}
 			
+		}
+		function lowerHand() {
+			if ($('#raise_hand').html() == "Lower hand") {
+				$('#raise_hand').removeClass();
+				$('#raise_hand').addClass('whiteButton');
+				$('#raise_hand').html("Raise hand");
+				var msg = "LOWER::" + $('input[id=name]').val();
+				webSocket.send(msg);
+			} else {
+				var msg = "RAISE::" + $('input[id=name]').val();
+				webSocket.send(msg);
+				$('#raise_hand').removeClass();
+				$('#raise_hand').addClass('greenButton');
+				$('#raise_hand').html("Lower hand");
+			}
 		}
 	</script>
 </head>
