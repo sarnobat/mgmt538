@@ -24,7 +24,7 @@
 			 };
 			 webSocket.onmessage = function (evt) { 
 			 	var received_msg = evt.data;
-				$('div[id=output]').prepend(received_msg + "<br>");
+				$("#students").append('<li>' + received_msg + '</li>')
 			 };
 			 webSocket.onclose = function() {			 
 				webSocket.send("TEACHER_LEFT");
@@ -47,7 +47,7 @@
         <div class="span3">
           <div class="slidebar-fluid">
             <h3>NAMES</h3>
-            <ul class="nav nav-list">             
+            <ul id="students" class="nav nav-list">             
               <li class="output" value=""><a>Name 0</a></li>
               <li class="output" value=""><a>Name 1</a></li>
               <li class="output" value=""><a>Name 2</a></li>
