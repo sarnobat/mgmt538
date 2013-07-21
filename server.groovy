@@ -64,17 +64,12 @@ try {
 						//String name = data.substring(7,data.length());
 						try {
 							int inserts = run.update( "INSERT INTO students (name,raised,correct) VALUES ('" + name + "',1,0)");
-							log.info("New student created");
 						} catch (Exception e) {
-							log.info("Student already exists, attempting to increment raise count...");
 							int updates = run.update( "UPDATE students SET raised=raised+1 WHERE name='" + name + "'");
-							log.info("Student hand raise incremented");
 						}
 					} else if  (data.startsWith("LOWER::")) {
-						log.info(data);
 						//String name = data.substring(7,data.length());
 						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
-						log.info("Decrement completed");
 					}
 					
 					// find out what the student's latest stats are
@@ -82,15 +77,11 @@ try {
 					String raisedCount = result1.length > 0 ? result1[0].get("raised") : 0;
 					String correctCount = result1.length > 0 ? result1[0].get("correct") : 0;
 					try {
-						log.info("Preparing json to send to teacher client");
-						// TODO: add the stats here
 						JSONObject json = new JSONObject();
 						json.put("name", data);
 						json.put("raised", raisedCount);
 						json.put("correct", correctCount);
-						log.info("About to send json to teacher client");
 						teacherConnection.sendMessage(json.toString());
-						log.info("Sent json to teacher client");
 						studentConnection.sendMessage('ACK::' + data);
 					} catch (Exception x) {
 						studentConnection.sendMessage('FAIL: ' + x.getStackTrace());
