@@ -26,6 +26,8 @@
 			 	var received_msg = evt.data;
 				if (received_msg.substring(0,7) == 'RAISE::') {
 					$("#students").append('<li class=output><a>' + received_msg.substring(7, received_msg.length) + '</a></li>')
+					$("#students2").append('<div class=row><div class=span2><a>' + received_msg.substring(7, received_msg.length) + '</a></div><div class=span3 class=output><input id="submit_1" type="button" class="btn" value="Partial credit"></div><div class=span4><input id="submit_1" type="button" class="btn" value="Correct"></div></div>')
+					$("#students3").append('<tr><td><a>' + received_msg.substring(7, received_msg.length) + '</a></td><td><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td><input id="submit_1" type="button" class="btn" value="Correct"></td></tr>')
 				}
 			 };
 			 webSocket.onclose = function() {			 
@@ -57,10 +59,13 @@
           </div>  
         </div>
         <form>
-        <div class="span9">
+        <table id="students3">
+        	<tr><th>Student</th><th></th><th></th></tr>
+        </table>
+        <div id="students2" class="span9">
           <div class="row">
             <div class="span4">
-              <h3>QUESTIONS</h3>
+              <h3>Nothing</h3>
             </div>
             <div class="span3">
               <h3>PARTICIPATOR</h3>
@@ -71,8 +76,6 @@
           </div>
           <div class="row" class="questions">
             <div class="span4" id="question_1">
-               	<input type="radio" name="question" value="radio_1_val" >
-            	<span>What is your name?</span>
             </div>
             <div class="span3" id="participator_1">
                 <input type="text" class="span9">
@@ -83,8 +86,6 @@
           </div>
           <div class="row" class="questions">
             <div class="span4" id="question_2">
-               	<input type="radio" name="question" value="radio_2_val" checked="">
-                <span>Who is the first President of Russia?</span>
             </div>
             <div class="span3" id="participator_2">
                 <input type="text" class="span9">
@@ -95,8 +96,6 @@
           </div>
           <div class="row" class="questions">
             <div class="span4" id="question_3">
-               	<input type="radio" name="question" value="radio_3_val">
-                <span>Who invented electricity?</span>
             </div>
             <div class="span3" id="participator_3">
                 <input type="text" class="span9">
