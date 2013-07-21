@@ -7,6 +7,9 @@
       body{
         padding-top: 60px;
       }
+      td {
+      	text-align: center;
+      }
     </style>
 	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>	<script type="text/javascript">
@@ -29,8 +32,8 @@
 					var val = obj.name;
 					var name = val.substring(7, val.length)
 					$("#students3").append('<tr><td align=center><a>'
-					  + name + " " + obj.raised + " " + obj.correct + " "
-					  + '</a></td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td></tr>')
+					  + name + "</a></td><td>" + obj.raised + "</td><td>" + obj.correct + "</td><td>"
+					  + '</td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td></tr>')
 			 	}
 				if (received_msg.substring(0,7) == 'RAISE::') {
 					var name = received_msg.substring(7, received_msg.length)
@@ -60,7 +63,7 @@
 		<br>
 		<br>
         <table id="students3" width="50%">
-        	<tr><th width="33%"Student</th><th width="33%"></th><th width="33%"></th></tr>
+        	<tr><th width="20%">Student</th><th width="20%">Raised Hand</th><th width="20%">Correctly Answered</th><th width="20%"></th><th width="20%"></th></tr>
         </table>
         </center>
 
