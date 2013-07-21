@@ -99,6 +99,7 @@ try {
 					}
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
 						studentSocket.sendMessage(data);
+						log.info("sent to a student: " + data);
 					}
 				}
 			};

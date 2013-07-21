@@ -62,7 +62,11 @@
 			} else if (received_msg == 'CLEAR') {
 				changeButton();
 				setButtonEnabled(true);
-			} else {
+			} else if (received_msg.substring(0,7) == 'CORRECT') {
+				lowerHand();
+				setButtonEnabled(true);
+			}
+			else {
 				alert(received_msg);
 				setButtonEnabled(false);
 			} 
