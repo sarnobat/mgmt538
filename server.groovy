@@ -128,4 +128,4 @@ try {
 }
 
 
-log.info('parent thread. Why dont the child threads get printed');
+log.info('parent thread ended');
