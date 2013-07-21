@@ -37,7 +37,6 @@ try {
 				@Override public void onOpen(Connection conn) {
 					log.info("Message");
 					studentConnection = conn;
-					//conn.sendMessage('success')
 					studentSockets.add(studentConnection)
 					studentConnections.put(this, studentConnection);
 					println('opened student');
