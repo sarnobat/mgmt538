@@ -93,6 +93,7 @@ try {
 				}
 
 				@Override public void onMessage(String data) {
+					log.info(data);
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
 						studentSocket.sendMessage(data);
 					}

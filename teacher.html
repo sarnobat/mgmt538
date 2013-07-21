@@ -36,7 +36,7 @@
 			 };
 		}
 		function correct(name) {
-			alert(name);
+			webSocket.send("CORRECT::" + name);
 		}
 	</script>
 </head>
