@@ -31,7 +31,7 @@
 					var name = received_msg.substring(7, received_msg.length)
 					$("#students3").append('<tr><td align=center><a>'
 					  + name
-					  + '</a></td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="alert(\'hi\')"></td></tr>')
+					  + '</a></td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="alert(\''+name+'\')"></td></tr>')
 				}
 			 };
 			 webSocket.onclose = function() {			 
