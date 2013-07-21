@@ -16,9 +16,6 @@
 			$('#students3').text("");
 		}
 		var webSocket ;
-		function correct(name) {
-			alert(name);
-		}
 		function connect() {
 			 webSocket = new WebSocket("ws://netgear.rohidekar.com:8082/");
 			 //webSocket = new WebSocket("ws://localhost:8082/");
@@ -37,6 +34,9 @@
 			 webSocket.onclose = function() {			 
 				webSocket.send("TEACHER_LEFT");
 			 };
+		}
+		function correct(name) {
+			alert(name);
 		}
 	</script>
 </head>
