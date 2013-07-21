@@ -112,8 +112,6 @@ try {
 
 				@Override public void onMessage(String data) {
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
-					//	studentConnections.get(studentSocket).sendMessage(data);
-						//println(studentSocket);
 						studentSocket.sendMessage(data);
 					}
 				}
