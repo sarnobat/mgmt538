@@ -127,7 +127,6 @@ try {
 				}
 
 				@Override public void onMessage(String data) {
-					log.info(data);
 					if (data.startsWith("CORRECT::")) {
 						String name = data.substring(9,data.length());
 						try {
@@ -138,7 +137,6 @@ try {
 					}
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
 						studentSocket.sendMessage(data);
-						log.info("sent to a student: " + data);
 					}
 				}
 			};
@@ -154,10 +152,4 @@ try {
 	};
 } catch (Throwable e) {
 	e.printStackTrace();
-}
-
-void incrementCorrect(String name) {
-	log.info("incrementCorrect() - begin");
-	
-	log.info("incrementCorrect() - end");
 }
