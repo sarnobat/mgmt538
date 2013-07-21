@@ -20,11 +20,7 @@ log.addHandler(handler);
 synchronized Logger getLogger() {
 	return log;
 }
-log.info('begin');
 
-synchronized static void doLog(String str) {
-	println(str);
-}
 final Connection teacherConnection;
 final Map<WebSocket.OnTextMessage, Connection> studentConnections = new HashMap<WebSocket.OnTextMessage, Connection>();
 final Collection<WebSocket.OnTextMessage> studentSockets = new HashSet<WebSocket.OnTextMessage>();
@@ -35,11 +31,9 @@ try {
 			return new WebSocket.OnTextMessage() {
 				Connection studentConnection;
 				@Override public void onOpen(Connection conn) {
-					log.info("Message");
 					studentConnection = conn;
 					studentSockets.add(studentConnection)
 					studentConnections.put(this, studentConnection);
-					println('opened student');
 				}
 
 				@Override public void onClose(int closeCode, String message) {
@@ -47,22 +41,17 @@ try {
 				}
 
 				@Override public void onMessage(String data) {
-					log.info("Message");
 					if (teacherConnection == null) {
-						log.info("Teacher not connected");
 						studentConnection.sendMessage('TEACHER_MISSING');
 						return;
 					} else {
-						log.info("Teacher is connected");
 						studentConnection.sendMessage('TEACHER_PRESENT');
 					}
 					try {
 						teacherConnection.sendMessage(data);
-						log.info("Successfully messaged the teacher");
 						studentConnection.sendMessage('RAISED');
 					} catch (Exception x) {
 						studentConnection.sendMessage('FAIL: ' + x.getStackTrace());
-						log.info("Exception: " + x.getStackTrace());
 					}
 				}
 			};
@@ -73,7 +62,6 @@ try {
 	studentServer.start();
 	new Runnable() {
 		@Override public void run() {
-			log.info('started studentServer');
 			studentServer.join();
 		}
 	};
@@ -92,7 +80,6 @@ try {
 			return new WebSocket.OnTextMessage() {
 				@Override public void onOpen(Connection conn) {
 					teacherConnection = conn;
-					log.info("Teacher just connected");
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
 						studentSocket.sendMessage("TEACHER_JOINED");
 					}
@@ -118,13 +105,9 @@ try {
 	teacherServer.start();
 	new Runnable() {
 		@Override public void run() {
-			log.info('started teacherServer');
 			teacherServer.join();
 		}
 	};
 } catch (Throwable e) {
 	e.printStackTrace();
 }
-
-
-log.info('parent thread ended');
