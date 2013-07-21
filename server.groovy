@@ -61,18 +61,15 @@ try {
 					}
 					String name = data.substring(7,data.length());					
 					if (data.startsWith("RAISE::")) {
-						//String name = data.substring(7,data.length());
 						try {
 							int inserts = run.update( "INSERT INTO students (name,raised,correct) VALUES ('" + name + "',1,0)");
 						} catch (Exception e) {
 							int updates = run.update( "UPDATE students SET raised=raised+1 WHERE name='" + name + "'");
 						}
 					} else if  (data.startsWith("LOWER::")) {
-						//String name = data.substring(7,data.length());
 						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
 					}
 					
-					// find out what the student's latest stats are
 					Map[] result1 = run.query("SELECT name,raised,correct FROM students WHERE name = ?", new MapListHandler(), name);
 					String raisedCount = result1.length > 0 ? result1[0].get("raised") : 0;
 					String correctCount = result1.length > 0 ? result1[0].get("correct") : 0;
