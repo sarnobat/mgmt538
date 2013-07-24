@@ -69,20 +69,7 @@ try {
 						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
 					}
 					
-					Map[] studentRows = run.query("SELECT name,raised,correct FROM students WHERE name = ?", new MapListHandler(), name);
-					String raisedCount = studentRows.length > 0 ? studentRows[0].get("raised") : 0;
-					String correctCount = studentRows.length > 0 ? studentRows[0].get("correct") : 0;
-					try {
-						JSONObject json = new JSONObject();
-						json.put("name", data);
-						json.put("raised", raisedCount);
-						json.put("correct", correctCount);
-						teacherConnection.sendMessage(json.toString());
-						studentConnection.sendMessage('ACK::' + data);
-					} catch (Exception x) {
-						studentConnection.sendMessage('FAIL: ' + x.getStackTrace());
-						log.info("json failure: " + x.toString());
-					}
+					updateStats(run, teacherConnection, studentConnection, data, name, log);
 				}
 			};
 		}
@@ -154,4 +141,21 @@ try {
 	};
 } catch (Throwable e) {
 	e.printStackTrace();
+}
+
+void updateStats(QueryRunner run, Connection teacherConnection, Connection studentConnection, String data, String name, Logger log) {
+	Map[] studentRows = run.query("SELECT name,raised,correct FROM students WHERE name = ?", new MapListHandler(), name);
+	String raisedCount = studentRows.length > 0 ? studentRows[0].get("raised") : 0;
+	String correctCount = studentRows.length > 0 ? studentRows[0].get("correct") : 0;
+	try {
+		JSONObject json = new JSONObject();
+		json.put("name", data);
+		json.put("raised", raisedCount);
+		json.put("correct", correctCount);
+		teacherConnection.sendMessage(json.toString());
+		studentConnection.sendMessage('ACK::' + data);
+	} catch (Exception x) {
+		studentConnection.sendMessage('FAIL: ' + x.getStackTrace());
+		log.info("json failure: " + x.toString());
+	}
 }
