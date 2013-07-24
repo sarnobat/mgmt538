@@ -40,8 +40,8 @@
 						http://stackoverflow.com/questions/6135665/jquery-find-table-row-containing-table-cell-containing-specific-text
 					*/
 					var obj = jQuery.parseJSON(received_msg);
-					var val = obj.name;
-					var name = val.substring(7, val.length)
+					//var val = obj.name;
+					var name = obj.name;
 					if (obj.operation == 'UPDATE_RAISED_ROW') {
 						$("#" + name + "-raised").text(obj.raised);
 						$("#" + name + "-correct").text(obj.correct);
