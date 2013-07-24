@@ -153,9 +153,7 @@ void updateStats(QueryRunner run, Connection teacherConnection, Connection stude
 		json.put("raised", raisedCount);
 		json.put("correct", correctCount);
 		teacherConnection.sendMessage(json.toString());
-		//studentConnection.sendMessage('ACK::' + data);
 	} catch (Exception x) {
-		//studentConnection.sendMessage('FAIL: ' + x.getStackTrace());
 		log.info("json failure: " + x.toString());
 	}
 }
