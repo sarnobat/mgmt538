@@ -126,13 +126,17 @@ try {
 						// don't try and be clever and increment it without querying the 
 						// database)
 					
-						updateStats(run, teacherConnection, data, name, log, "UPDATE_RAISED_ROW");	
+						updateStats(run, teacherConnection, data, name, log, "UPDATE_RAISED_ROW");
+						sendToAllStudents(data, studentSockets);
+					} else if (data.startsWith("CLEAR")) {
+						sendToAllStudents("CLEAR", studentSockets);
+					} else {
+						log.info("Unknown message from teacher: " + data);
 					}
 					// Send "CORRECT" toto the teacher for that student only
 					//
-					for (WebSocket.FrameConnection studentSocket : studentSockets) {
-						studentSocket.sendMessage(data);
-					}
+					
+
 				}
 			};
 		}
@@ -165,4 +169,10 @@ void updateStats(QueryRunner run, Connection teacherConnection, String data, Str
 		log.info("json failure: " + x.toString());
 	}
 	log.info("updateStats() - data:" + data + "::" +raisedCount + "::" + correctCount);
+}
+
+void sendToAllStudents(String data, Iterable<WebSocket.FrameConnection> studentSockets) {
+	for (WebSocket.FrameConnection studentSocket : studentSockets) {
+		studentSocket.sendMessage(data);
+	}
 }
