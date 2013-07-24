@@ -50,7 +50,7 @@
 					  		+ name + "</td><td id='"+name+"-raised'>" + obj.raised + "</td><td id='" +name+"-correct'>" + obj.correct + "</td><td>"
 					  		+ '</td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td></tr>');
 					}
-					alert(received_msg);
+					//alert(received_msg);
 			 	}
 				if (received_msg.substring(0,7) == 'RAISE::') {
 					var name = received_msg.substring(7, received_msg.length)
