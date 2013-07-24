@@ -44,7 +44,10 @@
 					var name = val.substring(7, val.length)
 					$("#students3").append('<tr><td align=center id="'+name+'">'
 					  + name + "</td><td>" + obj.raised + "</td><td>" + obj.correct + "</td><td>"
-					  + '</td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td></tr>')
+					  + '</td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td></tr>');
+					if (obj.operation == 'UPDATE_RAISED_ROW') {
+						alert("We have to do an update");
+					}				
 			 	}
 				if (received_msg.substring(0,7) == 'RAISE::') {
 					var name = received_msg.substring(7, received_msg.length)
