@@ -116,7 +116,7 @@ try {
 					if (data.startsWith("CORRECT::")) {
 						String name = data.substring(9,data.length());
 						try {
-							int updates = run.update( "UPDATE students SET correct=correct+1, raised=raised+1 WHERE name='" + name + "'");
+							int updates = run.update( "UPDATE students SET correct=correct+1 WHERE name='" + name + "'");
 							//int updates2 = run.update( "UPDATE students SET raised=raised+2 WHERE name='" + name + "'");
 						} catch (Exception e) {
 							log.info(e);
