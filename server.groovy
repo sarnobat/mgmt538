@@ -135,7 +135,7 @@ try {
 						// back the new stats for the student (from the database,
 						// don't try and be clever and increment it without querying the 
 						// database)
-						teacherConnection.sendMessage("NEW_CORRECT");
+						teacherConnection.sendMessage("UPDATE_STATS");
 					}
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
 						studentSocket.sendMessage(data);
