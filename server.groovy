@@ -65,11 +65,10 @@ try {
 							int inserts = run.update( "INSERT INTO students (name,raised,correct) VALUES ('" + name + "',1,0)");
 						} catch (Exception e) {
 						}
-					} else if  (data.startsWith("LOWER::")) {
+					} else if (data.startsWith("LOWER::")) {
 						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
-					}
-					
-					updateStats(run, teacherConnection, studentConnection, data, name, log);
+					}	
+					updateStats(run, teacherConnection, studentConnection, data, name, log);				
 				}
 			};
 		}
