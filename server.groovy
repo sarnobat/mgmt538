@@ -60,15 +60,18 @@ try {
 						studentConnection.sendMessage('TEACHER_PRESENT');
 					}
 					String name = data.substring(7,data.length());					
+					String statOperation;
 					if (data.startsWith("RAISE::")) {
 						try {
 							int inserts = run.update( "INSERT INTO students (name,raised,correct) VALUES ('" + name + "',1,0)");
 						} catch (Exception e) {
 						}
+						statOperation = "INSERT_RAISED_ROW";
 					} else if (data.startsWith("LOWER::")) {
 						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
+						statOperation = "UPDATE_RAISED_ROW";
 					}	
-					updateStats(run, teacherConnection, studentConnection, data, name, log);				
+					updateStats(run, teacherConnection, studentConnection, data, name, log, statOperation);
 				}
 			};
 		}
@@ -142,7 +145,7 @@ try {
 	e.printStackTrace();
 }
 
-void updateStats(QueryRunner run, Connection teacherConnection, Connection studentConnection, String data, String name, Logger log) {
+void updateStats(QueryRunner run, Connection teacherConnection, Connection studentConnection, String data, String name, Logger log, String statOperation) {
 	Map[] studentRows = run.query("SELECT name,raised,correct FROM students WHERE name = ?", new MapListHandler(), name);
 	String raisedCount = studentRows.length > 0 ? studentRows[0].get("raised") : 0;
 	String correctCount = studentRows.length > 0 ? studentRows[0].get("correct") : 0;
@@ -151,8 +154,10 @@ void updateStats(QueryRunner run, Connection teacherConnection, Connection stude
 		json.put("name", data);
 		json.put("raised", raisedCount);
 		json.put("correct", correctCount);
+		json.put("operation", statOperation);
 		teacherConnection.sendMessage(json.toString());
 	} catch (Exception x) {
 		log.info("json failure: " + x.toString());
 	}
+	log.info("updateStats() - data:" + data);
 }
