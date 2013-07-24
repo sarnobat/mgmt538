@@ -60,8 +60,10 @@
 			} else if (received_msg == 'TEACHER_LEFT') {
 				setButtonEnabled(false);
 			} else if (received_msg == 'CLEAR') {
-				changeButton();
-				setButtonEnabled(true);
+				if ($('#raise_hand').html() == "Lower hand") {
+					lowerHandAndReduceCount();
+					//setButtonEnabled(true);
+				}
 			} else if (received_msg.substring(0,7) == 'CORRECT') {
 				lowerHand();
 				setButtonEnabled(true);
