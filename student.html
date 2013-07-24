@@ -129,7 +129,7 @@
 		}
 		function changeButton() {
 			if ($('#raise_hand').html() == "Lower hand") {
-				lowerHand();
+				lowerHandAndReduceCount();
 			} else {
 				raiseHandDo();
 			}
@@ -148,6 +148,9 @@
 			$('#raise_hand').removeClass();
 			$('#raise_hand').addClass('whiteButton');
 			$('#raise_hand').html("Raise hand");
+		}
+		function lowerHandAndReduceCount() {
+			lowerHand();
 			var msg = "LOWER::" + $('input[id=name]').val();
 			webSocket.send(msg);
 		}

@@ -65,10 +65,11 @@ try {
 						try {
 							int inserts = run.update( "INSERT INTO students (name,raised,correct) VALUES ('" + name + "',1,0)");
 						} catch (Exception e) {
+							int updates = run.update( "UPDATE students SET raised=raised+1 WHERE name='" + name + "'");
 						}
 						statOperation = "INSERT_RAISED_ROW";
 					} else if (data.startsWith("LOWER::")) {
-						int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
+						//int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
 						statOperation = "UPDATE_RAISED_ROW";
 					}	
 					updateStats(run, teacherConnection, studentConnection, data, name, log, statOperation);
@@ -126,6 +127,8 @@ try {
 						// database)
 						teacherConnection.sendMessage("UPDATE_STATS");
 					}
+					// Send "CORRECT" toto the teacher for that student only
+					//
 					for (WebSocket.FrameConnection studentSocket : studentSockets) {
 						studentSocket.sendMessage(data);
 					}
