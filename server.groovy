@@ -1,3 +1,9 @@
+/*
+	TODO:
+		raise,lower, raise should only increment the raise count once
+		raise,lower, raise should only show one row, not two
+*/
+
 import org.json.JSONObject;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
