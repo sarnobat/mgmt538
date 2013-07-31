@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="lib/jquery.datatables.css" />
+    <style>
+      body{
+        padding-top: 60px;
+      }
+      td {
+      	text-align: center;
+      }
+    </style>
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="lib/jquery.datatables.js"></script>
+    <script src="lib/jquery.datatables.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#result-table').dataTable( {
+      "sDom": "<'row'<'span6'><'span6'>r>t<'row'<'span4'><'span8'p>>",
+      "oLanguage": {
+        "sLengthMenu": "_MENU_ records per page"
+      }         
+    });
+        });
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <h4 style="font-size:18px;" class="pagination-centered">Class Participation Tracker</h4>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+    <div class="row"><div class ="span10">
+      <table class="table table-bordered" id="result-table">
+        <thead>
+          <tr>
+            <th scope="col">NAME</th>
+            <th scope="col">RAISED</th>
+            <th scope="col">ANSWERED</th>
+            <th scope="col">WEAK</th>
+            <th scope="col">FAIR</th>
+            <th scope="col">GOOD</th>
+          </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+      </table>
+    </div>  
+    </div></div>
+  </body>
+</html>

@@ -56,7 +56,7 @@ class MyHandler implements HttpHandler {
         QueryRunner run = new QueryRunner(dataSource);
 
 
-        Map[] studentRows = run.query("SELECT name,raised,correct FROM students", new MapListHandler());
+        Map[] studentRows = run.query("SELECT name,raised,correct FROM students_2", new MapListHandler());
         String raisedCount = studentRows.length > 0 ? studentRows[0].get("raised") : 0;
 
         JSONArray json = new JSONArray();

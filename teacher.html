@@ -48,7 +48,7 @@
 					} else if (obj.operation == 'INSERT_RAISED_ROW') {
 						$("#students3").append('<tr><td align=center id="'+name+'">'
 					  		+ name + "</td><td id='"+name+"-raised'>" + obj.raised + "</td><td id='" +name+"-correct'>" + obj.correct + "</td><td>"
-					  		+ '</td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td></tr>');
+					  		+ '</td><td align=center><input id="submit_1" type="button" class="btn" value="Partial credit"></td><td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td><td><input type="button" class="btn" value="WEAK"</td><td><input type="button" class="btn" value="FAIR"</td><td><input type="button" class="btn" value="GOOD"</td></tr>');
 					}
 					//alert(received_msg);
 			 	}
