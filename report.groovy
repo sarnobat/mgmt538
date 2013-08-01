@@ -61,10 +61,10 @@ class MyHandler implements HttpHandler {
 
         JSONArray json = new JSONArray();
         for (Map row : studentRows ){
-        System.out.println(row);
-        JSONArray obj = new JSONArray();
-        obj.put(row.get("name"));
-        json.put(obj);
+			System.out.println(row);
+			JSONArray obj = new JSONArray();
+			obj.put(row.get("name"));
+			json.put(obj);
         }
 
 		t.getResponseHeaders().add("Access-Control-Allow-Origin","*");
