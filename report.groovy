@@ -49,6 +49,7 @@ class MyHandler implements HttpHandler {
 	}  
 
 	public void handle(HttpExchange t) throws IOException {
+		log.info("handle() - begin");
 		Class.forName("org.sqlite.JDBC");
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.sqlite.JDBC");
