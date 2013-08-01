@@ -29,7 +29,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-
+final Logger log = Logger.getLogger("com.something.something");
  
 class MyHandler implements HttpHandler {
 	public Map<String, String> getQueryMap(String query)  
@@ -74,8 +74,6 @@ class MyHandler implements HttpHandler {
 		os.close();
 	}
 }
-
-final Logger log = Logger.getLogger("com.something.something");
     
 HttpServer server = HttpServer.create(new InetSocketAddress(4444), 0);
 server.createContext("/", new MyHandler());
