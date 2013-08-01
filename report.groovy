@@ -74,9 +74,12 @@ class MyHandler implements HttpHandler {
 		os.close();
 	}
 }
+
+final Logger log = Logger.getLogger("com.something.something");
     
 HttpServer server = HttpServer.create(new InetSocketAddress(4444), 0);
 server.createContext("/", new MyHandler());
 server.setExecutor(null); // creates a default executor
+log.info("About to start server...");
 server.start();
 
