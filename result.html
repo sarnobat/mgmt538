@@ -18,10 +18,19 @@
     <script>
         $(document).ready(function(){
             $('#result-table').dataTable( {
-      			"sDom": "<'row'<'span6'><'span6'>r>t<'row'<'span4'><'span8'p>>",
+      			/*"sDom": "<'row'<'span6'><'span6'>r>t<'row'<'span4'><'span8'p>>",
       			"oLanguage": {
         			"sLengthMenu": "_MENU_ records per page"
-      			}
+      			},*/
+				"bProcessing": true,
+				"sAjaxSource": "trash/rows.json",
+				"aoColumns": [
+					{ "mData": "engine" },
+					{ "mData": "browser" },
+					{ "mData": "platform" },
+					{ "mData": "version" },
+					{ "mData": "grade" }
+				]
     		});
         });
     </script>
@@ -37,19 +46,7 @@
     <div class="container">
     <div class="row"><div class ="span10">
       <table class="table table-bordered" id="result-table">
-        <thead>
-          <tr>
-            <th scope="col">NAME</th>
-            <th scope="col">RAISED</th>
-            <th scope="col">ANSWERED</th>
-            <th scope="col">WEAK</th>
-            <th scope="col">FAIR</th>
-            <th scope="col">GOOD</th>
-          </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
+        
       </table>
     </div>  
     </div></div>
