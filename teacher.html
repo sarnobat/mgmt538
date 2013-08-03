@@ -49,10 +49,8 @@
 						$("#students3").append('<tr><td align=center id="'+name+'">'
 					  		+ name + "</td><td id='"+name+"-raised'>" + obj.raised + '</td>'
 					  		+ "<td id='" +name+"-correct'>" + obj.correct + '</td>'
-					  		+ '<td></td>'
-					  		+ '<td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td>'
-					  		+ '<td><input type="button" class="btn" value="WEAK"</td><td><input type="button" class="btn" value="FAIR"</td>'
-					  		+ '<td><input type="button" class="btn" value="GOOD"</td></tr>');
+					  		+ '<td><input type="number" style="width:30px" value="1"></td>'
+							+ '<td align=center><input id="submit_1" type="button" class="btn" value="Correct" onclick="correct(\''+name+'\')"></td></tr>');
 					}
 					//alert(received_msg);
 			 	}
@@ -84,7 +82,7 @@
 		<br>
 		<br>
         <table id="students3" width="50%">
-        	<tr><th width="20%">Student</th><th width="20%">Raised Hand</th><th width="20%">Correctly Answered</th><th width="20%"></th><th width="20%"></th></tr>
+        	<tr><th width="20%">Student</th><th width="20%">Raised Hand</th><th width="20%">Correctly Answered</th><th width="20%">4</th><th width="20%">5</th></tr>
         </table>
         </center>
 
