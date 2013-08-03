@@ -90,12 +90,12 @@ class MyHandler implements HttpHandler {
 
 		OutputStream os = t.getResponseBody();
 		try {
-		JSONObject ret = new JSONObject();
-		ret.put(  "aaData",json);
-		t.sendResponseHeaders(200, ret.toString().length());
-		os.write(ret.toString().getBytes());
-		os.close();
-		log.info("handle() - 9");
+			JSONObject ret = new JSONObject();
+			ret.put(  "aaData",json);
+			t.sendResponseHeaders(200, ret.toString().length());
+			os.write(ret.toString().getBytes());
+			os.close();
+			log.info("handle() - 9");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
