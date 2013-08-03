@@ -77,11 +77,11 @@ class MyHandler implements HttpHandler {
 			System.out.println(row);
 			JSONObject obj = new JSONObject();
 			obj.put("name",row.get("name"));
-			Integer raised = Integer.parseInt(row.get("raised"));
-			Integer correct = Integer.parseInt(row.get("correct"));
+//			Integer raised = Integer.parseInt(row.get("raised"));
+//			Integer correct = Integer.parseInt(row.get("correct"));
 			obj.put("raised", row.get("raised"));
 			obj.put("correct", row.get("correct"));
-			obj.put("percentage", row.get("correct"));
+//			obj.put("percentage", row.get("correct"));
 			log.info("handle() - 4");
 			json.put(obj);
 			log.info("handle() - " + row);
