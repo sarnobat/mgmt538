@@ -79,9 +79,11 @@ class MyHandler implements HttpHandler {
 			obj.put("name",row.get("name"));
 //			Integer raised = Integer.parseInt(row.get("raised"));
 //			Integer correct = Integer.parseInt(row.get("correct"));
+//			float raisedFloat = (float) raised;
+//			float correctFloat = (float) correct;
 			obj.put("raised", row.get("raised"));
 			obj.put("correct", row.get("correct"));
-//			obj.put("percentage", row.get("correct"));
+//			obj.put("percentage", (correct/raised));
 			log.info("handle() - 4");
 			json.put(obj);
 			log.info("handle() - " + row);

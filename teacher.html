@@ -34,6 +34,7 @@
 						if (obj.operation == 'UPDATE_RAISED_ROW') {
 							$("[id='" + name + "-raised']").text(obj.raised);
 							$("[id='" + name + "-correct']").text(obj.correct);
+							$("[id='" + name + "-percentage']").text(obj.percentage);
 						} else if (obj.operation == 'INSERT_RAISED_ROW') {
 						
 							$("[id='" + name + "-row']").remove("");
@@ -41,6 +42,7 @@
 								+ '<td align=center>' + name + "</td>"
 								+ "<td id='" + name + "-raised'>" + obj.raised + '</td>'
 								+ "<td id='" + name + "-correct'>" + obj.correct + '</td>'
+								+ "<td id='" + name + "-percentage'>" + obj.percentage + '</td>'
 								+ '<td><input id="' + name+ '-credit" type="number" style="width:30px" value="1"></td>'
 								+ '<td align=center><input type="button" class="btn" value="Update" onclick="correct(\''+name+'\')"></td></tr>');
 						}
@@ -76,7 +78,14 @@
 		<br>
 		<br>
 		<table id="students3" width="50%">
-			<tr><th width="20%">Student</th><th width="20%">Raised Hand</th><th width="20%">Points</th><th width="20%">Credit</th><th width="20%"></th></tr>
+			<tr>
+				<th width="20%">Student</th>
+				<th width="20%">Raised Hand</th>
+				<th width="20%">Points</th>
+				<th width="20%">Points per question</th>
+				<th width="20%">Credit</th>
+				<th width="20%"></th>
+			</tr>
 		</table>
 		</center>
 	</body>
