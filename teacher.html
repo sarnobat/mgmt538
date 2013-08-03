@@ -32,23 +32,24 @@
 						var obj = jQuery.parseJSON(received_msg);
 						var name = obj.name;
 						if (obj.operation == 'UPDATE_RAISED_ROW') {
-							$("#" + name + "-raised").text(obj.raised);
-							$("#" + name + "-correct").text(obj.correct);
+							$("[id='" + name + "-raised']").text(obj.raised);
+							$("[id='" + name + "-correct']").text(obj.correct);
 						} else if (obj.operation == 'INSERT_RAISED_ROW') {
 						
-							$("#" + name + "-row").remove("");
-							$("#students3").append('<tr id=' +name+ '-row><td align=center id="'+name+'">'
-								+ name + "</td><td id='"+name+"-raised'>" + obj.raised + '</td>'
-								+ "<td id='" +name+"-correct'>" + obj.correct + '</td>'
-								+ '<td><input id="credit" type="number" style="width:30px" value="1"></td>'
-								+ '<td align=center><input id="submit_1" type="button" class="btn" value="Update" onclick="correct(\''+name+'\')"></td></tr>');
+							$("[id='" + name + "-row']").remove("");
+							$("#students3").append('<tr id="' + name + '-row">'
+								+ '<td align=center>' + name + "</td>"
+								+ "<td id='" + name + "-raised'>" + obj.raised + '</td>'
+								+ "<td id='" + name + "-correct'>" + obj.correct + '</td>'
+								+ '<td><input id="' + name+ '-credit" type="number" style="width:30px" value="1"></td>'
+								+ '<td align=center><input type="button" class="btn" value="Update" onclick="correct(\''+name+'\')"></td></tr>');
 						}
 					}
 					if (received_msg.substring(0,7) == 'RAISE::') {
 						var name = received_msg.substring(7, received_msg.length)
 					} else if (received_msg.substring(0,7) == 'LOWER::') {
 						var name = received_msg.substring(7, received_msg.length)
-						$("#" + name + "-row").remove("");
+						$("[id='" + name + "-row']").remove("");
 					}
 				 };
 				 webSocket.onclose = function() {			 
@@ -56,7 +57,7 @@
 				 };
 			}
 			function correct(name) {
-				webSocket.send("CORRECT::" + name + "::" + $("#credit").val());
+				webSocket.send("CORRECT::" + name + "::" + $("[id='" +name+ "-credit']").val());
 			}
 		</script>
 	</head>
