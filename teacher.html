@@ -55,6 +55,8 @@
 					}
 					if (received_msg.substring(0,7) == 'RAISE::') {
 						var name = received_msg.substring(7, received_msg.length)
+					} else if (received_msg.substring(0,7) == 'LOWER::') {
+						alert(received_msg);
 					}
 				 };
 				 webSocket.onclose = function() {			 

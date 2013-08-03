@@ -79,6 +79,7 @@ try {
 						statOperation = "INSERT_RAISED_ROW";
 					} else if (data.startsWith("LOWER::")) {
 						statOperation = "UPDATE_RAISED_ROW";
+						teacherConnection.sendMessage(data);
 					}	
 					updateStats(run, teacherConnection, data, name, log, statOperation);
 				}
