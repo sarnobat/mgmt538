@@ -91,6 +91,21 @@
 			webSocket = new WebSocket("ws://netgear.rohidekar.com:8081/");
 			webSocket2 = new WebSocket("ws://netgear.rohidekar.com:8081/");
 		}
+		
+		function raiseHand() {
+			console.debug('1');
+			// Should not be dependent on teacher's page being open
+			if (webSocket == null) {
+				console.debug('2');
+				connectAndSend();
+			} else {
+				console.debug('Socket previously initialized');
+				changeButton();
+				console.debug('Successfully sent message');
+			}
+			
+		}
+
 		// DEPRECATED
 		function connectAndSend() {
 			console.debug('connectAndSend() end');
@@ -115,20 +130,7 @@
 			};
 			console.debug('connectAndSend() end');
 		}
-		
-		function raiseHand() {
-			console.debug('1');
-			// Should not be dependent on teacher's page being open
-			if (webSocket == null) {
-				console.debug('2');
-				connectAndSend();
-			} else {
-				console.debug('Socket previously initialized');
-				changeButton();
-				console.debug('Successfully sent message');
-			}
-			
-		}
+
 		function changeButton() {
 			if ($('#raise_hand').html() == "Lower hand") {
 				lowerHandAndReduceCount();
