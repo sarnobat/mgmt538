@@ -32,8 +32,15 @@ import com.sun.net.httpserver.HttpServer;
 final Logger log = Logger.getLogger("com.something.something");
  
 class MyHandler implements HttpHandler {
+	final Logger log = Logger.getLogger("com.something.something");
+	MyHandler() {
+		log.info("MyHandler() - begin");
+		println('constructo');
+	}
+
 	public Map<String, String> getQueryMap(String query)  
-	{  
+	{
+		log.info("getQueryMap() - begin");
 		Pattern pattern = Pattern.compile("/\\?.*");
 
 		Matcher matcher = pattern.matcher(query);
@@ -49,30 +56,47 @@ class MyHandler implements HttpHandler {
 	}  
 
 	public void handle(HttpExchange t) throws IOException {
-		log.info("handle() - begin");
+		println("handle() - begin");
 		Class.forName("org.sqlite.JDBC");
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.sqlite.JDBC");
         dataSource.setUrl("jdbc:sqlite:students.db");
         QueryRunner run = new QueryRunner(dataSource);
 
+		log.info("handle() - 2");
 
-        Map[] studentRows = run.query("SELECT name,raised,correct FROM students_2", new MapListHandler());
+		Map[] studentRows = run.query("SELECT name,raised,correct FROM students", new MapListHandler());
+		log.info("handle() - 2.5");
         String raisedCount = studentRows.length > 0 ? studentRows[0].get("raised") : 0;
+		log.info("handle() - 2.6");
 
         JSONArray json = new JSONArray();
+		log.info("handle() - 3");
+
         for (Map row : studentRows ){
 			System.out.println(row);
-			JSONArray obj = new JSONArray();
-			obj.put(row.get("name"));
+			JSONObject obj = new JSONObject();
+			obj.put("engine",row.get("name"));
+			log.info("handle() - 4");
 			json.put(obj);
+			log.info("handle() - " + row);
         }
-
+		log.info("handle() - 5");
+		
 		t.getResponseHeaders().add("Access-Control-Allow-Origin","*");
-		t.sendResponseHeaders(200, json.toString().length());
+		t.getResponseHeaders().add("Content-type", "application/json");
+
 		OutputStream os = t.getResponseBody();
-		os.write(json.toString().getBytes());
+		try {
+		JSONObject ret = new JSONObject();
+		ret.put(  "aaData",json);
+		t.sendResponseHeaders(200, ret.toString().length());
+		os.write(ret.toString().getBytes());
 		os.close();
+		log.info("handle() - 9");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
     

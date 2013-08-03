@@ -15,14 +15,17 @@
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="https://datatables.net/release-datatables/media/js/jquery.dataTables.js"></script>
     <script>
+/*		$(document).ready(function(){
+			$.getJSON("http://netgear.rohidekar.com:4444",function(result){		
+				$.each(result, function(i, field){
+					alert(field.engine);
+				});
+			});
+		});*/
         $(document).ready(function(){
             $('#result-table').dataTable( {
-      			/*"sDom": "<'row'<'span6'><'span6'>r>t<'row'<'span4'><'span8'p>>",
-      			"oLanguage": {
-        			"sLengthMenu": "_MENU_ records per page"
-      			},*/
-				"bProcessing": true,
-				"sAjaxSource": "trash/rows.json",
+      			"bProcessing": true,
+				"sAjaxSource": "http://netgear.rohidekar.com:4444",
 				"aoColumns": [
 					{ "mData": "engine" },
 					{ "mData": "browser" },
