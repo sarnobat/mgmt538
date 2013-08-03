@@ -15,6 +15,7 @@ import org.apache.commons.dbutils.handlers.*;
 import java.io.IOException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.lang.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.logging.SimpleFormatter;
@@ -166,11 +167,19 @@ void updateStats(QueryRunner run, Connection teacherConnection, String data, Str
 	Map[] studentRows = run.query("SELECT name,raised,correct FROM students WHERE name = ?", new MapListHandler(), name);
 	String raisedCount = studentRows.length > 0 ? studentRows[0].get("raised") : 0;
 	String correctCount = studentRows.length > 0 ? studentRows[0].get("correct") : 0;
+	String rate = "-";
+	if (Float.parseFloat(raisedCount) > 0) {
+		//log.info((Float.parseFloat(correctCount) / Float.parseFloat(raisedCount)));
+		Float rateFloat = Math.floor((1 - (Float.parseFloat(correctCount) / Float.parseFloat(raisedCount)))*100);
+		int rateInt = rateFloat;
+		rate = rateInt + "%";
+	}
 	try {
 		JSONObject json = new JSONObject();
 		json.put("name", name);
 		json.put("raised", raisedCount);
 		json.put("correct", correctCount);
+		json.put("rate",  rate);
 		json.put("operation", statOperation);
 		log.info("updateStats() - about to send: " + json.toString());
 		teacherConnection.sendMessage(json.toString());

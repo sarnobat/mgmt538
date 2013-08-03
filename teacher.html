@@ -34,7 +34,7 @@
 						if (obj.operation == 'UPDATE_RAISED_ROW') {
 							$("[id='" + name + "-raised']").text(obj.raised);
 							$("[id='" + name + "-correct']").text(obj.correct);
-							$("[id='" + name + "-percentage']").text(obj.percentage);
+							$("[id='" + name + "-rate']").text(obj.rate);
 						} else if (obj.operation == 'INSERT_RAISED_ROW') {
 						
 							$("[id='" + name + "-row']").remove("");
@@ -42,7 +42,7 @@
 								+ '<td align=center>' + name + "</td>"
 								+ "<td id='" + name + "-raised'>" + obj.raised + '</td>'
 								+ "<td id='" + name + "-correct'>" + obj.correct + '</td>'
-								+ "<td id='" + name + "-percentage'>" + obj.percentage + '</td>'
+								+ "<td id='" + name + "-rate'>" + obj.rate + '</td>'
 								+ '<td><input id="' + name+ '-credit" type="number" style="width:30px" value="1"></td>'
 								+ '<td align=center><input type="button" class="btn" value="Update" onclick="correct(\''+name+'\')"></td></tr>');
 						}
