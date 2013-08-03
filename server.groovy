@@ -144,8 +144,6 @@ try {
 						log.info("Unknown message from teacher: " + data);
 					}
 					// Send "CORRECT" toto the teacher for that student only
-					
-
 				}
 			};
 		}
@@ -162,7 +160,7 @@ try {
 	e.printStackTrace();
 }
 
-// Updates the teacher's display. It does not changewrite to the DB, just reads
+// Updates the teacher's display. It does not write to the DB, just reads
 void updateStats(QueryRunner run, Connection teacherConnection, String data, String name, Logger log, String statOperation) {
 	Map[] studentRows = run.query("SELECT name,raised,correct FROM students WHERE name = ?", new MapListHandler(), name);
 	String raisedCount = studentRows.length > 0 ? studentRows[0].get("raised") : 0;
