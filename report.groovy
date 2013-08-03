@@ -76,7 +76,7 @@ class MyHandler implements HttpHandler {
         for (Map row : studentRows ){
 			System.out.println(row);
 			JSONObject obj = new JSONObject();
-			obj.put("engine",row.get("name"));
+			obj.put("name",row.get("name"));
 			log.info("handle() - 4");
 			json.put(obj);
 			log.info("handle() - " + row);
