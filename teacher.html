@@ -9,6 +9,7 @@
 		  }
 		  td {
 			text-align: center;
+			padding: 5px;
 		  }
 		</style>
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -43,7 +44,7 @@
 								+ "<td id='" + name + "-raised'>" + obj.raised + '</td>'
 								+ "<td id='" + name + "-correct'>" + obj.correct + '</td>'
 								+ "<td id='" + name + "-rate'>" + obj.rate + '</td>'
-								+ '<td><input id="' + name+ '-credit" type="number" style="width:30px" value="1">&nbsp;&nbsp;&nbsp;&nbsp;<input type="textarea"></td>'
+								+ '<td><input id="' + name+ '-credit" type="number" style="width:30px" value="1"></td>'
 								+ '<td align=center><input type="button" class="btn" value="Update" onclick="correct(\''+name+'\')"></td></tr>');
 						}
 					}
@@ -73,9 +74,12 @@
 			</div>
 		  </div>
 		</div>   
-		
-		<center><input type="button" value="clear" onclick="clearConsole()">
 		<br>
+		<br>		
+		<br>		
+		<center>
+		<input type="button" class=btn value="New Question" onclick="clearConsole()">
+
 		<br>
 		<br>
 		<table id="students3" width="75%">
