@@ -170,9 +170,12 @@ void updateStats(QueryRunner run, Connection teacherConnection, String data, Str
 	String rate = "-";
 	if (Float.parseFloat(raisedCount) > 0) {
 		//log.info((Float.parseFloat(correctCount) / Float.parseFloat(raisedCount)));
-		Float rateFloat = Math.floor((1 - (Float.parseFloat(correctCount) / Float.parseFloat(raisedCount)))*100);
+		Float rateFloat = Float.parseFloat(correctCount) / Float.parseFloat(raisedCount) * 100;
+		log.info("rateFloat: " + rateFloat);
 		int rateInt = rateFloat;
+		log.info("rateInt: " + rateInt);
 		rate = rateInt + "%";
+		log.info("rate: " + rate);
 	}
 	try {
 		JSONObject json = new JSONObject();
