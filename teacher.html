@@ -35,7 +35,7 @@
 							$("#" + name + "-raised").text(obj.raised);
 							$("#" + name + "-correct").text(obj.correct);
 						} else if (obj.operation == 'INSERT_RAISED_ROW') {
-							$("#students3").append('<tr><td align=center id="'+name+'">'
+							$("#students3").append('<tr id=' +name+ '-row><td align=center id="'+name+'">'
 								+ name + "</td><td id='"+name+"-raised'>" + obj.raised + '</td>'
 								+ "<td id='" +name+"-correct'>" + obj.correct + '</td>'
 								+ '<td><input id="credit" type="number" style="width:30px" value="1"></td>'
@@ -45,7 +45,8 @@
 					if (received_msg.substring(0,7) == 'RAISE::') {
 						var name = received_msg.substring(7, received_msg.length)
 					} else if (received_msg.substring(0,7) == 'LOWER::') {
-						alert(received_msg);
+						var name = received_msg.substring(7, received_msg.length)
+						$("#" + name + "-row").html("");
 					}
 				 };
 				 webSocket.onclose = function() {			 
