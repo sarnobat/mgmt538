@@ -123,9 +123,14 @@ try {
 
 				@Override public void onMessage(String data) {
 					if (data.startsWith("CORRECT::")) {
-						String name = data.substring(9,data.length());
+						String[] parts = data.split("::");
+						//String name = data.substring(9,data.length());
+						String name = parts[1];
+						Integer credit = Integer.parseInt(parts[2]);
+						log.info("***************" + parts);
+						log.info("***************" + credit);
 						try {
-							int updates = run.update( "UPDATE students SET correct=correct+1 WHERE name='" + name + "'");
+							int updates = run.update( "UPDATE students SET correct=correct+" + credit + " WHERE name='" + name + "'");
 						} catch (Exception e) {
 							log.info(e);
 						}							
