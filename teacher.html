@@ -46,7 +46,9 @@
 						var name = received_msg.substring(7, received_msg.length)
 					} else if (received_msg.substring(0,7) == 'LOWER::') {
 						var name = received_msg.substring(7, received_msg.length)
-						$("#" + name + "-row").html("");
+						//$("#" + name + "-row").html("");
+						$("#" + name + "-row").remove("");
+						//alert("Lowered");
 					}
 				 };
 				 webSocket.onclose = function() {			 
