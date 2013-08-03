@@ -35,6 +35,8 @@
 							$("#" + name + "-raised").text(obj.raised);
 							$("#" + name + "-correct").text(obj.correct);
 						} else if (obj.operation == 'INSERT_RAISED_ROW') {
+						
+							$("#" + name + "-row").remove("");
 							$("#students3").append('<tr id=' +name+ '-row><td align=center id="'+name+'">'
 								+ name + "</td><td id='"+name+"-raised'>" + obj.raised + '</td>'
 								+ "<td id='" +name+"-correct'>" + obj.correct + '</td>'
