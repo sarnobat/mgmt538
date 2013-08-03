@@ -2,6 +2,9 @@
 	TODO:
 		raise,lower, raise should only increment the raise count once
 		raise,lower, raise should only show one row, not two
+
+	SQL:		
+	 alter table students add column additional_points number;
 */
 
 import org.json.JSONObject;
