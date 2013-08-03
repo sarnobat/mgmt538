@@ -78,7 +78,6 @@ try {
 						}
 						statOperation = "INSERT_RAISED_ROW";
 					} else if (data.startsWith("LOWER::")) {
-						//int updates = run.update( "UPDATE students SET raised=raised-1 WHERE name='" + name + "'");
 						statOperation = "UPDATE_RAISED_ROW";
 					}	
 					updateStats(run, teacherConnection, data, name, log, statOperation);
