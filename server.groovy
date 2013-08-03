@@ -130,7 +130,7 @@ try {
 							int updates = run.update( "UPDATE students SET correct=correct+" + credit + " WHERE name='" + name + "'");
 						} catch (Exception e) {
 							log.info(e);
-						}							
+						}
 						// We received a CORRECT message from the teacher. Send the teacher
 						// back the new stats for the student (from the database,
 						// don't try and be clever and increment it without querying the 
