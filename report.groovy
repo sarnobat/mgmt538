@@ -77,6 +77,8 @@ class MyHandler implements HttpHandler {
 			System.out.println(row);
 			JSONObject obj = new JSONObject();
 			obj.put("name",row.get("name"));
+			obj.put("raised",row.get("raised"));
+			obj.put("correct",row.get("correct"));
 			log.info("handle() - 4");
 			json.put(obj);
 			log.info("handle() - " + row);
