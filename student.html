@@ -4,9 +4,7 @@
 <head>
         <link rel="stylesheet" href="lib/jqtouch.css" title="jQTouch">
 
-        <!--<script src="../../src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>-->
         <script src="lib/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
-        <!-- Uncomment the following two lines (and comment out the previous two) to use jQuery instead of Zepto. -->
 		<script src="lib/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script>
         <script src="lib/jqtouch-jquery.min.js" type="application/x-javascript" charset="utf-8"></script>
 
@@ -30,15 +28,11 @@
 		var webSocket2;
 		var teacherPresent = false;
 		function checkTeacherAvailability() {
-			console.debug('checkTeacherAvailability() - begin');
 			connect();
 			webSocket2.onopen = function() {
 				// This gets called even if the socket doesn't get opened successfully.
-				console.debug('attempting to send after connect attempt');
 				var msg = "LOAD::" + $('input[id=name]').val();
 				webSocket2.send(msg);
-				console.debug('sent after connect attempt');
-				console.debug('checkTeacherAvailability.onopen() end');
 			};
 			webSocket2.onmessage = function (evt) { 
 				// To clear participation
@@ -48,7 +42,6 @@
 			webSocket2.onclose = function() { 
 				setButtonEnabled(false);
 			};
-			console.debug('checkTeacherAvailability() - end');
 		}
 		function handleMessage(received_msg) {
 			if (received_msg == 'TEACHER_MISSING') {
@@ -72,7 +65,6 @@
 				alert(received_msg);
 				setButtonEnabled(false);
 			} 
-			console.debug('checkTeacherAvailability.onmessage() end');
 		}
 		function setButtonEnabled(enabled) {
 			teacherPresent = enabled;
@@ -93,42 +85,30 @@
 		}
 		
 		function raiseHand() {
-			console.debug('1');
 			// Should not be dependent on teacher's page being open
 			if (webSocket == null) {
-				console.debug('2');
 				connectAndSend();
 			} else {
-				console.debug('Socket previously initialized');
 				changeButton();
-				console.debug('Successfully sent message');
 			}
 			
 		}
 
 		// helper method only for raiseHand().
 		function connectAndSend() {
-			console.debug('connectAndSend() end');
 			connect();
-			console.debug('webSocket now initialized');
 			webSocket.onopen = function() {
 				// This gets called even if the socket doesn't get opened successfully.
-				console.debug('attempting to send after connect attempt');
 				changeButton();
-				console.debug('sent after connect attempt');
-				console.debug('onopen() end');
 			};
 			webSocket.onmessage = function (evt) { 
 				// To clear participation
 				var received_msg = evt.data;
 				alert(received_msg);
-				console.debug('onmessage() end');
 			};
 			webSocket.onclose = function() { 
-				console.debug('onclose() end');
 				alert('closed 1');
 			};
-			console.debug('connectAndSend() end');
 		}
 
 		function changeButton() {
